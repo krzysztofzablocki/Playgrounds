@@ -1,6 +1,7 @@
 # Playgrounds for Objective-C
 
-[You need to watch this](https://vimeo.com/109757619)
+[You need to watch this video](https://vimeo.com/109757619)
+
 ![](/Screenshots/small_playground.gif?raw=true)
 
 [![Version](https://img.shields.io/cocoapods/v/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
