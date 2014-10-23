@@ -1,0 +1,19 @@
+PODS:
+  - dyci (0.1.5.6):
+    - dyci/Injections
+  - dyci/Injections (0.1.5.6)
+  - KZPlayground (0.1.0):
+    - dyci (~> 0.1.5.6)
+
+DEPENDENCIES:
+  - KZPlayground (from `../`)
+
+EXTERNAL SOURCES:
+  KZPlayground:
+    :path: ../
+
+SPEC CHECKSUMS:
+  dyci: 86668b266b8a281cb6db02843150f6a210c34ee9
+  KZPlayground: 245c1b5decc114df559cf75eccb47953aacb088a
+
+COCOAPODS: 0.34.4
