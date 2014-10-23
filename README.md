@@ -71,8 +71,10 @@ KZPAction(@"Press me", ^{
 
 - Adjusters
 
-`KZPAdjustValue(scale, 0.5f, 1.0f)` - for floats
-`KZPAdjustValue(position, 0, 100)`- for integers
+```objc
+KZPAdjustValue(scale, 0.5f, 1.0f) //- for floats
+KZPAdjustValue(position, 0, 100) //- for integers
+```
 
 - Also available as block callbacks `KZPAdjust`
 
