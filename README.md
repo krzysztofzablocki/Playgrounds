@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/cocoapods/l/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
 [![Platform](https://img.shields.io/cocoapods/p/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
 
-Playgrounds are awesome, Apple has made amazing job with Xcode 6 and Playgrounds were the icying on the cake. 
+Playgrounds are awesome, Apple has made amazing job with Xcode 6 and Playgrounds were the icing on the cake. 
 
 They have multitude of use cases, eg.
 
@@ -22,7 +22,7 @@ Features:
 - Faster than Swift playgrounds (a lot)
 - Extra controls for tweaking:
 - Adjustable values
-- Autoanimated values
+- Auto-animated values
 - Buttons
 - IDE agnostic, once you run it, you can modify the code even from vim.
 - Full iOS simulator and access to all iOS features, so you can prototype production ready code.
@@ -51,7 +51,7 @@ First, let’s establish naming:
 - NSString, with format or without
 - id
 
-#### Implementing snapshoting for your custom classes
+#### Implementing snapshotting for your custom classes
 You can implement custom debug image:
 
 ```objc
@@ -88,12 +88,12 @@ KZPAnimateValue(rotation, 0, 360)
 KZPAnimateValueAR(scale, 0, 1)
 ```
 
-# Instalation and setup
+# Installation and setup
 KZPlayground is distributed as a [CocoaPod](http://cocoapods.org):
 `pod KZPlayground`
 so you can either add it to your existing project or clone this repository and play with it. 
 
-> Remember to not add playgrounds in production builds (easy with new cocoapods configuartion scoping).
+> Remember to not add playgrounds in production builds (easy with new cocoapods configuration scoping).
 
 Once you have pod installed, you need to create your playground, it’s simple:
 1. Subclass KZPPlayground
@@ -103,8 +103,8 @@ Once you have pod installed, you need to create your playground, it’s simple:
 4. present `[KZPPlaygroundViewController playgroundViewController]`
 
 To apply your changes you have 2 approaches:
-- Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifing your playground to re-run your code.
-- Continous on file save (IDE agnostic), just launch kicker gem in terminal: 
+- Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your playground to re-run your code.
+- Continuous on file save (IDE agnostic), just launch kicker gem in terminal: 
 
 ```bash
 kicker -l 0.016 -e "/usr/bin/python ~/.dyci/scripts/dyci-recompile.py PATH_TO_YOUR_PLAYGROUND_IMPLEMENTATION" PATH_TO_YOUR_PLAYGROUND_IMPLEMENTATION`
