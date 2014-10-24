@@ -9,8 +9,14 @@
 // KZPlayground
 #define COCOAPODS_POD_AVAILABLE_KZPlayground
 #define COCOAPODS_VERSION_MAJOR_KZPlayground 0
-#define COCOAPODS_VERSION_MINOR_KZPlayground 1
+#define COCOAPODS_VERSION_MINOR_KZPlayground 2
 #define COCOAPODS_VERSION_PATCH_KZPlayground 0
+
+// RSSwizzle
+#define COCOAPODS_POD_AVAILABLE_RSSwizzle
+#define COCOAPODS_VERSION_MAJOR_RSSwizzle 0
+#define COCOAPODS_VERSION_MINOR_RSSwizzle 1
+#define COCOAPODS_VERSION_PATCH_RSSwizzle 0
 
 // dyci
 #define COCOAPODS_POD_AVAILABLE_dyci

@@ -52,6 +52,7 @@
 {
   self.currentPlayground.worksheetView = [self cleanWorksheet];
   self.currentPlayground.viewController = self;
+  [self.currentPlayground.transientObjects removeAllObjects];
   [self dismissViewControllerAnimated:NO completion:nil];
 
   [self.timelineViewController reset];
@@ -85,7 +86,13 @@
 
 - (void)playgroundImplementationChanged
 {
-  [self executePlayground];
+  [self setNeedsExecutePlayground];
+}
+
+- (void)setNeedsExecutePlayground
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(executePlayground) object:nil];
+  [self performSelector:@selector(executePlayground) withObject:nil afterDelay:0];
 }
 
 #pragma mark - Helpers

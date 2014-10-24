@@ -92,6 +92,20 @@ KZPAnimateValue(rotation, 0, 360)
 KZPAnimateValueAR(scale, 0, 1)
 ```
 
+### Storing variables
+
+### Transient - Cleared with each code change
+
+Instead of using instance variables / properties for KZPlayground class (you are fine to use them for normal classes that you create as part of playground), you should store playground specific variables that you need to reference between playground methods, eg. view you want to pan with UIPanGestureRecognizer inside transientObjects dictionary.
+
+```objc
+self.transientObjects[@"pannableView"] = view;
+```
+
+### Persisted - Not cleared with recompilation
+
+You can override init and use normal instance variables to store data you don't want to change on code change.
+
 # Installation and setup
 KZPlayground is distributed as a [CocoaPod](http://cocoapods.org):
 `pod KZPlayground`
@@ -107,13 +121,20 @@ Once you have pod installed, you need to create your playground, it’s simple:
 4. present `[KZPPlaygroundViewController playgroundViewController]`
 
 To apply your changes you have 2 approaches:
-- Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your playground to re-run your code.
-- Continuous on file save (IDE agnostic), just launch kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
+1. Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your code.
+2. (My Preferrence) Automatic on file save (IDE agnostic) using kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
 
 ```bash
-PLAYGROUND_IMP_PATH="path/to/your/playground.m"
-kicker -l 0.016 -e "/usr/bin/python ~/.dyci/scripts/dyci-recompile.py ${PLAYGROUND_IMP_PATH}" ${PLAYGROUND_IMP_PATH}
+kicker -sql 0.016 FOLDER_WITH_SOURCE_FILES
 ```
+
+in case of Example project you'd call kicker from inside the project root folder (one containing Example and Pod)
+
+```bash
+kicker -sql 0.016 Example
+```
+
+This will react to all changes in .m files and reload your playground.
 
 ### Only once
 KZPlayground is powered by [Dyci](https://github.com/DyCI/dyci-main/) code injection tool, you only need to install it once on your machine (You’ll need to reinstall it on Xcode updates):
@@ -123,11 +144,17 @@ git clone https://github.com/DyCI/dyci-main.git
 cd dyci-main/Install/
 ./install.sh
 ```
+
 In order to use the [kicker](https://github.com/alloy/kicker) gem, you need to install it as follows:  
-``` (sudo) gem install kicker```
+
+```bash
+(sudo) gem install kicker
+```
 
 ## Roadmap & Contributing
 
+- Recompilation of Xib
+- Recompilation of Storyboards
 - Integrate graph displays.
 - Resizable timeline/worksheet splitter.
 - Nicer visualisations for Arrays && Dictionaries.

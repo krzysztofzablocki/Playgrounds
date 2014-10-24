@@ -6,6 +6,7 @@
 //
 
 #import "KZPlaygroundExample.h"
+#import "KZPPlayground+Internal.h"
 
 @import SceneKit;
 
@@ -13,7 +14,7 @@
 
 - (void)run
 {
-   [self samplePlayground];
+  [self samplePlayground];
 //   [self sceneKit];
 }
 
@@ -39,14 +40,17 @@
   view.clipsToBounds = YES;
   KZPShow(view);
 
-
   view.center = self.worksheetView.center;
   [self.worksheetView addSubview:view];
 
   KZPAdjustValue(rotation, 0, 360);
-  KZPAdjustValue(scale, 0.3f, 3.0f);
-// KZPAnimateValueAR(scale, 0.3, 3.0f);
-  
+//  KZPAdjustValue(scale, 0.3f, 3.0f);
+  KZPAnimateValueAR(scale, 0.3, 3.0f);
+
+  UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+  [self.worksheetView addGestureRecognizer:panGestureRecognizer];
+  self.transientObjects[@"pannableView"] = view;
+
   KZPAnimate(^{
     view.transform = CGAffineTransformRotate(CGAffineTransformMakeScale(scale, scale), rotation * (M_PI / 180));
   });
@@ -56,6 +60,12 @@
   CGFloat pattern[] = { 9, 4, 0, 1 };
   [bezierPath setLineDash:pattern count:4 phase:2];
   KZPShow(bezierPath);
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+  UIView *view = self.transientObjects[@"pannableView"];
+  view.center = [panGestureRecognizer locationInView:panGestureRecognizer.view];
 }
 
 - (void)sceneKit
@@ -105,7 +115,7 @@
 
 
   KZPAnimateValueAR(yRotation, 0, 120);
-  KZPAnimate(^ {
+  KZPAnimate(^{
     boxNode.transform = SCNMatrix4MakeRotation(yRotation * (M_PI / 180), 0, 1, 0);
   });
 
