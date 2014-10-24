@@ -85,7 +85,13 @@
 
 - (void)playgroundImplementationChanged
 {
-  [self executePlayground];
+  [self setNeedsExecutePlayground];
+}
+
+- (void)setNeedsExecutePlayground
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(executePlayground) object:nil];
+  [self performSelector:@selector(executePlayground) withObject:nil afterDelay:0];
 }
 
 #pragma mark - Helpers
