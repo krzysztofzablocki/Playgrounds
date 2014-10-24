@@ -92,6 +92,20 @@ KZPAnimateValue(rotation, 0, 360)
 KZPAnimateValueAR(scale, 0, 1)
 ```
 
+### Storing variables
+
+### Transient - Cleared with each code change
+
+Instead of using instance variables / properties for KZPlayground class (you are fine to use them for normal classes that you create as part of playground), you should store playground specific variables that you need to reference between playground methods, eg. view you want to pan with UIPanGestureRecognizer inside transientObjects dictionary.
+
+```objc
+self.transientObjects[@"pannableView"] = view;
+```
+
+### Persisted - Not cleared with recompilation
+
+You can override init and use normal instance variables to store data you don't want to change on code change.
+
 # Installation and setup
 KZPlayground is distributed as a [CocoaPod](http://cocoapods.org):
 `pod KZPlayground`

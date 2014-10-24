@@ -17,6 +17,7 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 
 @implementation NSObject (KZPOverride)
 #pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 #pragma ide diagnostic ignored "UnresolvedMessage"
 + (void)load
 {
