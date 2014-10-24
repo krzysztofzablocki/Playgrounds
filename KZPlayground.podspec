@@ -20,4 +20,5 @@ Fast robust interations make it easy to prototype custom UI/Algorithms or even l
   s.resources = ['Pod/Assets/*']
 
   s.dependency 'dyci', '~> 0.1.5.6'
+  s.dependency 'RSSwizzle', '~> 0.1.0'
 end

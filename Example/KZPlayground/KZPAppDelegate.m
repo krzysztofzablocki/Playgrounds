@@ -12,9 +12,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-  
-    self.window.rootViewController = [KZPPlaygroundViewController playgroundViewController];
+  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+
+  self.window.rootViewController = [KZPPlaygroundViewController playgroundViewController];
   [self.window makeKeyAndVisible];
   return YES;
 }

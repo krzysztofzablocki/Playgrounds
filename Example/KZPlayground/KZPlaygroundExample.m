@@ -44,8 +44,8 @@
   [self.worksheetView addSubview:view];
 
   KZPAdjustValue(rotation, 0, 360);
-  KZPAdjustValue(scale, 0.3f, 3.0f);
-// KZPAnimateValueAR(scale, 0.3, 3.0f);
+ // KZPAdjustValue(scale, 0.3f, 3.0f);
+ KZPAnimateValueAR(scale, 0.3, 3.0f);
   
   KZPAnimate(^{
     view.transform = CGAffineTransformRotate(CGAffineTransformMakeScale(scale, scale), rotation * (M_PI / 180));
