@@ -14,7 +14,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
   
-    self.window.rootViewController = [KZPPlaygroundViewController playground];
+    self.window.rootViewController = [KZPPlaygroundViewController playgroundViewController];
   [self.window makeKeyAndVisible];
   return YES;
 }

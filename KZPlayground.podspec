@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "KZPlayground"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "Playgrounds but for Objective-C, with some extra coolnes."
   s.description      = <<-DESC
                        We all love Swift playgrounds, they are really great,
