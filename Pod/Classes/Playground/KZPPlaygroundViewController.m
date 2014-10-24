@@ -18,7 +18,7 @@
 
 @implementation KZPPlaygroundViewController
 
-+ (KZPPlaygroundViewController*)playground 
++ (KZPPlaygroundViewController*)playgroundViewController
 {
   return [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:self]] instantiateInitialViewController];
 }
