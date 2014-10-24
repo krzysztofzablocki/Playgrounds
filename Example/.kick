@@ -5,7 +5,7 @@ process do |potential_files|
 	files = potential_files.take_and_map do |file|
     	if file =~ %r{^.*\.(m|xib|storyboard)$}
     		execute("/usr/bin/python #{File.expand_path("~/.dyci/scripts/dyci-recompile.py")} #{File.expand_path(file)}")
-    		puts "KZPPlayground: Recompiled #{file}"
+    		puts "KZPlayground: Recompiled #{file}"
     		file
     	end
     end
@@ -13,11 +13,11 @@ end
 
 process do |remaining_files|
 	remaining_files.take_and_map do |file|
-    	puts "KZPPlayground: Ignored #{file}"
+    	puts "KZPlayground: Ignored #{file}"
 		file
 	end
 end
 
 startup do
-  log "KZPPlayground: Watching for file changes!"
+  log "KZPlayground: Watching for file changes!"
 end

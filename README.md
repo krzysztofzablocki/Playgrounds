@@ -107,13 +107,14 @@ Once you have pod installed, you need to create your playground, it’s simple:
 4. present `[KZPPlaygroundViewController playgroundViewController]`
 
 To apply your changes you have 2 approaches:
-- Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your playground to re-run your code.
-- Continuous on file save (IDE agnostic), just launch kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
+1. Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your playground to re-run your code.
+2. Continuous on file save (IDE agnostic) using kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
 
 ```bash
-PLAYGROUND_IMP_PATH="path/to/your/playground.m"
-kicker -l 0.016 -e "/usr/bin/python ~/.dyci/scripts/dyci-recompile.py ${PLAYGROUND_IMP_PATH}" ${PLAYGROUND_IMP_PATH}
+kicker -sql 0.016 FOLDER_WITH_SOURCE_FILES
 ```
+
+This will react to all changes in .m/.xib/.storyboard files and reload your playground.
 
 ### Only once
 KZPlayground is powered by [Dyci](https://github.com/DyCI/dyci-main/) code injection tool, you only need to install it once on your machine (You’ll need to reinstall it on Xcode updates):
