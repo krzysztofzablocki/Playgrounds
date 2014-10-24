@@ -111,7 +111,8 @@ To apply your changes you have 2 approaches:
 - Continuous on file save (IDE agnostic), just launch kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
 
 ```bash
-kicker -l 0.016 -e "/usr/bin/python ~/.dyci/scripts/dyci-recompile.py PATH_TO_YOUR_PLAYGROUND_IMPLEMENTATION" PATH_TO_YOUR_PLAYGROUND_IMPLEMENTATION`
+PLAYGROUND_IMP_PATH="path/to/your/playground.m"
+kicker -l 0.016 -e "/usr/bin/python ~/.dyci/scripts/dyci-recompile.py ${PLAYGROUND_IMP_PATH}" ${PLAYGROUND_IMP_PATH}
 ```
 
 ### Only once
