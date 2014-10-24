@@ -108,7 +108,7 @@ Once you have pod installed, you need to create your playground, it’s simple:
 
 To apply your changes you have 2 approaches:
 - Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your playground to re-run your code.
-- Continuous on file save (IDE agnostic), just launch kicker gem in terminal: 
+- Continuous on file save (IDE agnostic), just launch kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
 
 ```bash
 kicker -l 0.016 -e "/usr/bin/python ~/.dyci/scripts/dyci-recompile.py PATH_TO_YOUR_PLAYGROUND_IMPLEMENTATION" PATH_TO_YOUR_PLAYGROUND_IMPLEMENTATION`
@@ -122,7 +122,7 @@ git clone https://github.com/DyCI/dyci-main.git
 cd dyci-main/Install/
 ./install.sh
 ```
-In order to use the kicker gem, you need to install it as follows:
+In order to use the [kicker](https://github.com/alloy/kicker) gem, you need to install it as follows:  
 ``` (sudo) gem install kicker```
 
 ## Roadmap & Contributing
