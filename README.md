@@ -121,6 +121,7 @@ Once you have pod installed, you need to create your playground, it’s simple:
 4. present `[KZPPlaygroundViewController playgroundViewController]`
 
 To apply your changes you have 2 approaches:
+
 1. Xcode/Appcode you can use cmd/ctrl + x (done via dyci plugin) while you are modifying your code.
 2. (My Preferrence) Automatic on file save (IDE agnostic) using kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
 
