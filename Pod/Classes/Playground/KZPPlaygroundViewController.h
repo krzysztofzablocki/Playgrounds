@@ -9,5 +9,5 @@
 @import UIKit;
 
 @interface KZPPlaygroundViewController : UIViewController
-+ (instancetype)playground;
++ (instancetype)playgroundViewController;
 @end
