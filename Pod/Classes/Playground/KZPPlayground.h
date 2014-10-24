@@ -22,5 +22,8 @@ extern NSString *const KZPPlaygroundDidChangeImplementationNotification;
 @property(nonatomic, weak, readonly) UIView *worksheetView;
 @property(nonatomic, weak, readonly) UIViewController *viewController;
 
+//! objects store that will be re-created with recompilation, use eg. instead of instance variables
+@property(nonatomic, strong, readonly) NSMutableDictionary *transientObjects;
+
 - (void)run;
 @end

@@ -52,6 +52,7 @@
 {
   self.currentPlayground.worksheetView = [self cleanWorksheet];
   self.currentPlayground.viewController = self;
+  [self.currentPlayground.transientObjects removeAllObjects];
   [self dismissViewControllerAnimated:NO completion:nil];
 
   [self.timelineViewController reset];
