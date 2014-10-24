@@ -2,7 +2,7 @@
 
 [You need to watch this video](https://vimeo.com/109757619)
 
-![](/Screenshots/small_playground.gif?raw=true)
+[![](/Screenshots/small_playground.gif?raw=true)](https://vimeo.com/109757619)
 
 [![Version](https://img.shields.io/cocoapods/v/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
 [![License](https://img.shields.io/cocoapods/l/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
