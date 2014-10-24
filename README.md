@@ -122,6 +122,8 @@ git clone https://github.com/DyCI/dyci-main.git
 cd dyci-main/Install/
 ./install.sh
 ```
+In order to use the kicker gem, you need to install it as follows:
+``` (sudo) gem install kicker```
 
 ## Roadmap & Contributing
 
