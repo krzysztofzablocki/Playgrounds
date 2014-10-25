@@ -44,9 +44,24 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 @implementation KZPPlayground
 @synthesize transientObjects = _transientObjects;
 
+- (instancetype)init
+{
+  self = [super init];
+  if (self) {
+    [self setup];
+  }
+
+  return self;
+}
+
 - (NSMutableDictionary *)transientObjects
 {
   return (_transientObjects = _transientObjects ?: [NSMutableDictionary new]);
+}
+
+- (void)setup
+{
+
 }
 
 - (void)run

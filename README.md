@@ -103,8 +103,16 @@ self.transientObjects[@"pannableView"] = view;
 ```
 
 ### Persisted - Not cleared with recompilation
+Implement setup method and use normal instance variables to store data you don't want to change on code change.
+eg. if you need to do some expensive operation.
 
-You can override init and use normal instance variables to store data you don't want to change on code change.
+```objc
+- (void)setup
+{
+	self.data = [self fetchBigDataSet];
+}
+```
+
 
 # Installation and setup
 KZPlayground is distributed as a [CocoaPod](http://cocoapods.org):

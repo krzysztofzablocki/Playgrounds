@@ -13,6 +13,8 @@
 @interface KZPTimelineViewController : UIViewController
 + (KZPTimelineViewController *)sharedInstance;
 
++ (void)setSharedInstance:(KZPTimelineViewController *)sharedInstance;
+
 - (void)playgroundDidRun;
 
 - (CGFloat)maxWidthForSnapshotView;

@@ -8,6 +8,7 @@
 #import "KZPTimelineViewController.h"
 #import "KZPSnapshotView.h"
 #import "KZPPlayground.h"
+
 @import ObjectiveC.runtime;
 
 #import <objc/runtime.h>
@@ -31,24 +32,28 @@ static KZPTimelineViewController *_singleton = nil;
 
 + (KZPTimelineViewController *)sharedInstance
 {
-  NSAssert(_singleton, @"KZPTimelineViewController has to be loaded before it's active instance is referenced.");
+  NSAssert(_singleton, @"KZPTimelineViewController has to be set before it's instance is referenced.");
   return _singleton;
+}
+
++ (void)setSharedInstance:(KZPTimelineViewController *)sharedInstance
+{
+  _singleton = sharedInstance;
 }
 
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  _singleton = self;
   self.snapshotViews = [NSMutableArray new];
 }
 
 - (void)addView:(UIView *)view
 {
-  if(!view) {
+  if (!view) {
     KZPShow(@"nil argument");
     return;
   }
-  
+
   //! TODO: layouting will be in separate pass inside run when I add dynamic-resizing timeline
   UIView *lastView = [self.snapshotViews lastObject];
   CGFloat maxY = CGRectGetMaxY(lastView.frame);
@@ -57,7 +62,7 @@ static KZPTimelineViewController *_singleton = nil;
     KZPShow(@"View size %@", NSStringFromCGSize(view.bounds.size));
     return;
   }
-  
+
   CGFloat height = CGRectGetHeight(view.bounds);
   CGFloat limitedWidth = MIN(width, [self maxWidthForSnapshotView]);
   CGFloat aspectAdjustment = limitedWidth / width;
