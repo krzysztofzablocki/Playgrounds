@@ -51,7 +51,7 @@ void __attribute__((overloadable)) KZPShow(CALayer *layer) {
 void __attribute__((overloadable)) KZPShow(UIView *view) {
   KZPShowRegisterClass(view, UIView.class);
 
-  UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
+  UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
   [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
   UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
