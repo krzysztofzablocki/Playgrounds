@@ -11,6 +11,10 @@
 @import SceneKit;
 
 @implementation KZPlaygroundExample
+- (void)setup
+{
+  KZPShow(@"Setup snapshot");
+}
 
 - (void)run
 {
