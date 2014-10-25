@@ -18,7 +18,7 @@
 
 @implementation KZPPlaygroundViewController
 
-+ (KZPPlaygroundViewController*)playgroundViewController
++ (KZPPlaygroundViewController *)playgroundViewController
 {
   return [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:self]] instantiateInitialViewController];
 }
@@ -31,21 +31,30 @@
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playgroundImplementationChanged) name:KZPPlaygroundDidChangeImplementationNotification object:nil];
-
-  NSArray *playgrounds = [self findClassesConformingToProtocol:@protocol(KZPActivePlayground)];
-  NSAssert(playgrounds.count == 1, @"One KZPPlayground subclass needs to conform to KZPActivePlayground, it will be the active playground for the current run.");
-  KZPPlayground *playground = (KZPPlayground *)[playgrounds.firstObject new];
-  NSAssert([playground isKindOfClass:KZPPlayground.class], @"Class conforming to KZPActivePlayground has to be a subclass of KZPPlayground.");
-
-  self.currentPlayground = playground;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
+
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [KZPTimelineViewController setSharedInstance:self.timelineViewController];
+    self.currentPlayground = [self createActivePlayground];
+    [self.timelineViewController playgroundSetupCompleted];
+  });
+
   [self executePlayground];
+}
+
+- (KZPPlayground *)createActivePlayground
+{
+  NSArray *playgrounds = [self findClassesConformingToProtocol:@protocol(KZPActivePlayground)];
+  NSAssert(playgrounds.count == 1, @"One KZPPlayground subclass needs to conform to KZPActivePlayground, it will be the active playground for the current run.");
+  KZPPlayground *playground = (KZPPlayground *)[playgrounds.firstObject new];
+  NSAssert([playground isKindOfClass:KZPPlayground.class], @"Class conforming to KZPActivePlayground has to be a subclass of KZPPlayground.");
+  return playground;
 }
 
 - (void)reset

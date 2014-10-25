@@ -25,5 +25,11 @@ extern NSString *const KZPPlaygroundDidChangeImplementationNotification;
 //! objects store that will be re-created with recompilation, use eg. instead of instance variables
 @property(nonatomic, strong, readonly) NSMutableDictionary *transientObjects;
 
+- (instancetype)init NS_REQUIRES_SUPER NS_DESIGNATED_INITIALIZER;
+
+//! called only once
+- (void)setup;
+
+//! called on each code change
 - (void)run;
 @end
