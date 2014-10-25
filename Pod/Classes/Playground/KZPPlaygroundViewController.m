@@ -42,6 +42,7 @@
   dispatch_once(&onceToken, ^{
     [KZPTimelineViewController setSharedInstance:self.timelineViewController];
     self.currentPlayground = [self createActivePlayground];
+    [self.timelineViewController playgroundSetupCompleted];
   });
 
   [self executePlayground];

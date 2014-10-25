@@ -25,6 +25,7 @@ static KZPTimelineViewController *_singleton = nil;
 @property(weak, nonatomic) IBOutlet UILabel *tickLabel;
 @property(nonatomic, weak) IBOutlet UIScrollView *scrollView;
 @property(nonatomic, strong) NSMutableArray *snapshotViews;
+@property(nonatomic, copy) NSArray *persistedSnapshotViews;
 @property(nonatomic, strong) UIPopoverController *currentPopoverController;
 @end
 
@@ -45,6 +46,7 @@ static KZPTimelineViewController *_singleton = nil;
 {
   [super awakeFromNib];
   self.snapshotViews = [NSMutableArray new];
+  self.persistedSnapshotViews = [NSArray new];
 }
 
 - (void)addView:(UIView *)view
@@ -69,15 +71,18 @@ static KZPTimelineViewController *_singleton = nil;
   height *= aspectAdjustment;
   CGRect frame = CGRectMake(self.widthForSnapshotColumn * 0.5f - limitedWidth * 0.5f, maxY + kVerticalMargin, limitedWidth, height);
   view.frame = CGRectIntegral(frame);
-  [self.scrollView addSubview:view];
-  [self.snapshotViews addObject:view];
 
   if ([view conformsToProtocol:@protocol(KZPSnapshotView)]) {
     UIView <KZPSnapshotView> *snapshot = (UIView <KZPSnapshotView> *)view;
     if (snapshot.hasExtraInformation) {
-      [self.scrollView addSubview:[self extraInfoButtonForSnapshotView:snapshot]];
+      UIButton *infoButton = [self extraInfoButtonForSnapshotView:snapshot];
+      [self.scrollView addSubview:infoButton];
+      [self.snapshotViews addObject:infoButton];
     }
   }
+
+  [self.scrollView addSubview:view];
+  [self.snapshotViews addObject:view];
 }
 
 - (UIButton *)extraInfoButtonForSnapshotView:(UIView <KZPSnapshotView> *)snapshot
@@ -104,10 +109,16 @@ static KZPTimelineViewController *_singleton = nil;
 - (void)reset
 {
   [self updateTicker];
-
   [self.currentPopoverController dismissPopoverAnimated:NO];
-  [self.snapshotViews removeAllObjects];
-  [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  [self resetSnapshotViews];
+}
+
+- (void)resetSnapshotViews
+{
+  NSMutableSet *snapshotsToRemove = [NSMutableSet setWithArray:self.snapshotViews];
+  [snapshotsToRemove minusSet:[NSSet setWithArray:self.persistedSnapshotViews]];
+  self.snapshotViews = [self.persistedSnapshotViews mutableCopy];
+  [snapshotsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 - (void)updateTicker
@@ -122,6 +133,12 @@ static KZPTimelineViewController *_singleton = nil;
   UIView *lastView = [self.snapshotViews lastObject];
   CGFloat y = CGRectGetMaxY(lastView.frame);
   self.scrollView.contentSize = CGSizeMake(0, y);
+}
+
+- (void)playgroundSetupCompleted
+{
+  //! after playground has completed we have our initial snapshot views that should be persisted
+  self.persistedSnapshotViews = self.snapshotViews;
 }
 
 #pragma mark - Helpers

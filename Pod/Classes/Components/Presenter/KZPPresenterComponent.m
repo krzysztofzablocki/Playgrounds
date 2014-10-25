@@ -5,6 +5,7 @@
 //
 
 
+#import <objc/runtime.h>
 #import "KZPPresenterComponent.h"
 #import "KZPTimelineViewController.h"
 #import "KZPSnapshotView.h"
@@ -12,14 +13,33 @@
 
 static NSString *KZPShowType = nil;
 
-void KZPShowRegisterType(NSString *type) {
-  if (!KZPShowType || type == nil) {
-    KZPShowType = type;
+void KZPShowRegisterType(NSString *format, ...) {
+  if (format == nil) {
+    KZPShowType = nil;
+    return;
   }
+
+  if (KZPShowType) {
+    return;
+  }
+
+  va_list args;
+  va_start(args, format);
+  KZPShowType = [[NSString alloc] initWithFormat:format arguments:args];
+  va_end(args);
+}
+
+void KZPShowRegisterClass(id instance, Class baseClass) {
+  if (![instance isMemberOfClass: baseClass]) {
+    KZPShowRegisterType(@"%@:%@", NSStringFromClass([instance class]), NSStringFromClass(baseClass));
+    return;
+  }
+
+  KZPShowRegisterType(NSStringFromClass(baseClass));
 }
 
 void __attribute__((overloadable)) KZPShow(CALayer *layer) {
-  KZPShowRegisterType(@"CALayer");
+  KZPShowRegisterClass(layer, CALayer.class);
 
   UIGraphicsBeginImageContextWithOptions(layer.bounds.size, NO, 0);
   [layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -29,9 +49,14 @@ void __attribute__((overloadable)) KZPShow(CALayer *layer) {
 }
 
 void __attribute__((overloadable)) KZPShow(UIView *view) {
-  KZPShowRegisterType(@"UIView");
+  KZPShowRegisterClass(view, UIView.class);
 
-  KZPShow(view.layer);
+  UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
+  [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+
+  KZPShow(image);
 }
 
 void __attribute__((overloadable)) KZPShow(CGPathRef path) {
@@ -158,7 +183,7 @@ void __attribute__((overloadable)) KZPShow(id obj) {
 - (UIViewController *)extraInfoController
 {
   KZPPresenterInfoViewController *presenterInfoViewController = [KZPPresenterInfoViewController new];
-  NSString *title = [NSString stringWithFormat:@"%@: %.0f x %.0f", self.type, self.image.size.width, self.image.size.height];
+  NSString *title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.image.size.width, self.image.size.height];
   [presenterInfoViewController setFromImage:self.image title:title];
   return presenterInfoViewController;
 }

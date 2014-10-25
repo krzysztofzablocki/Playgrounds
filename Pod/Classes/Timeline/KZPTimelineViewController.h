@@ -16,10 +16,12 @@
 + (void)setSharedInstance:(KZPTimelineViewController *)sharedInstance;
 
 - (void)playgroundDidRun;
+- (void)playgroundSetupCompleted;
 
 - (CGFloat)maxWidthForSnapshotView;
 
 - (void)reset;
 
 - (void)addView:(UIView *)view;
+
 @end

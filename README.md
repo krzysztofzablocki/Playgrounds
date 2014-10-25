@@ -106,6 +106,8 @@ self.transientObjects[@"pannableView"] = view;
 Implement setup method and use normal instance variables to store data you don't want to change on code change.
 eg. if you need to do some expensive operation.
 
+Snapshots recorded during setup will persist in timeline.
+
 ```objc
 - (void)setup
 {
