@@ -74,4 +74,8 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 
 }
 
+- (void)updateOnResourceInjection:(NSString *)path {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KZPPlaygroundDidChangeImplementationNotification object:nil];
+}
+
 @end

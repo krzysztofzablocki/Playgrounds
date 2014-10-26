@@ -22,14 +22,14 @@ Fast robust interations make it easy to prototype custom UI/Algorithms or even l
   s.dependency 'dyci', '~> 0.1.5.6'
   s.dependency 'RSSwizzle', '~> 0.1.0'
 
-  s.prepare_command = <<-'CMD' 
+  s.prepare_command = <<-'CMD'
   cat << EOF > ../../.kick
    recipe :ruby
 Kicker::Recipes::Ruby.runner_bin = 'bacon -q'
 
 process do |potential_files|
   files = potential_files.take_and_map do |file|
-      if file =~ %r{^.*\.(m)$}
+      if file =~ %r{^.*\.(m|xib|strings)$}
         execute("/usr/bin/python #{File.expand_path("~/.dyci/scripts/dyci-recompile.py")} #{File.expand_path(file)}")
         puts "KZPlayground: Recompiled #{file}"
         file
