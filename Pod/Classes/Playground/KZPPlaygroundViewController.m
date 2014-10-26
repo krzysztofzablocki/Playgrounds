@@ -43,9 +43,8 @@
     [KZPTimelineViewController setSharedInstance:self.timelineViewController];
     self.currentPlayground = [self createActivePlayground];
     [self.timelineViewController playgroundSetupCompleted];
+    [self executePlayground];
   });
-
-  [self executePlayground];
 }
 
 - (KZPPlayground *)createActivePlayground

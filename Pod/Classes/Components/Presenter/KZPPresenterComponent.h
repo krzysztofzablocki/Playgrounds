@@ -29,7 +29,7 @@ extern void __attribute__((overloadable)) KZPShow(id obj);
 
 @protocol KZPPresenterDebugProtocol <NSObject>
 //! preffered
-- (UIImage*)kzp_debugImage;
+- (UIImage *)kzp_debugImage;
 
 //! will use if object provides any of [CALayer, UIView, UIBezierPath, UIImage, NSString]
 @optional
@@ -37,5 +37,7 @@ extern void __attribute__((overloadable)) KZPShow(id obj);
 @end
 
 @interface KZPPresenterComponent : UIView <KZPComponent>
+@property(nonatomic, strong) UIImage *image;
+
 - (instancetype)initWithImage:(UIImage *)image type:(NSString *)type;
 @end

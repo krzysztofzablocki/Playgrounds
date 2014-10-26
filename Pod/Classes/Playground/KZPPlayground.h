@@ -8,6 +8,7 @@
 #import "KZPPresenterComponent.h"
 #import "KZPValueAdjustComponent.h"
 #import "KZPActionComponent.h"
+#import "KZPImagePickerComponent.h"
 
 @import Foundation;
 @import UIKit;

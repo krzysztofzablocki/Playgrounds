@@ -69,7 +69,18 @@ KZPAction(@"Press me", ^{
 })
 ```
 
-- Adjusters
+- Images
+
+Picking an image from the library:
+
+```objc
+KZPAdjustImage(myImage);
+KZPAnimate(^{
+  imageView.image = myImage;
+});
+```
+
+- Values
 
 ```objc
 KZPAdjustValue(scale, 0.5f, 1.0f) //- for floats

@@ -20,6 +20,22 @@
 {
   [self samplePlayground];
 //   [self sceneKit];
+
+  [self imagePickingExample];
+}
+
+- (void)imagePickingExample
+{
+  UIImageView *imageView = [UIImageView new];
+  imageView.center = self.worksheetView.center;
+  [self.worksheetView addSubview:imageView];
+
+  KZPAdjustImage(myImage);
+  KZPAnimate(^{
+    imageView.image = myImage;
+    [imageView sizeToFit];
+    imageView.center = self.worksheetView.center;
+  });
 }
 
 - (void)samplePlayground
