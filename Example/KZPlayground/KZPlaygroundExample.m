@@ -18,24 +18,24 @@
 
 - (void)run
 {
+  [self backgroundImagePickingExample];
   [self samplePlayground];
 //   [self sceneKit];
 
-  [self imagePickingExample];
 }
 
-- (void)imagePickingExample
+- (void)backgroundImagePickingExample
 {
   UIImageView *imageView = [UIImageView new];
   imageView.center = self.worksheetView.center;
   [self.worksheetView addSubview:imageView];
 
   KZPAdjustImage(myImage);
-  KZPAnimate(^{
-    imageView.image = myImage;
+  KZPWhenChanged(myImage, (^(UIImage *img) {
+    imageView.image = img;
     [imageView sizeToFit];
     imageView.center = self.worksheetView.center;
-  });
+  }));
 }
 
 - (void)samplePlayground
