@@ -151,7 +151,7 @@ Snapshots recorded during setup will persist in timeline.
 
 # Installation and setup
 KZPlayground is distributed as a [CocoaPod](http://cocoapods.org):
-`pod KZPlayground`
+`pod 'KZPlayground'`
 so you can either add it to your existing project or clone this repository and play with it. 
 
 > Remember to not add playgrounds in production builds (easy with new cocoapods configuration scoping).
@@ -216,6 +216,7 @@ If you'd like to get specific features [I'm available for iOS consulting](http:/
 - Image picking.
 - Synchronisations.
 - Change observing.
+- Localizable strings are injected.
 
 ### 0.2.5
 - Persistent setup functionality.

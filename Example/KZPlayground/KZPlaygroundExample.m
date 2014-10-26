@@ -45,6 +45,11 @@
 
   UIImage *bigImage = [UIImage imageNamed:@"foldify"];
   KZPShow(bigImage);
+  
+  UILabel *label = [[UILabel alloc] init];
+  label.text = NSLocalizedString(@"main.hello", nil);
+  [label sizeToFit];
+  KZPShow(label);
 
   UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 128, 256)];
   view.layer.borderColor = UIColor.yellowColor.CGColor;
