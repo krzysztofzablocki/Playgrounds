@@ -1,6 +1,6 @@
-# Playgrounds for Objective-C
+# Swift Playgrounds... but for Objective-C and with some superb features.
 
-[You need to watch this video](https://vimeo.com/109757619)
+[Watch demo](https://vimeo.com/109757619)
 
 [![](/Screenshots/small_playground.gif?raw=true)](https://vimeo.com/109757619)
 
@@ -8,21 +8,18 @@
 [![License](https://img.shields.io/cocoapods/l/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
 [![Platform](https://img.shields.io/cocoapods/p/KZPlayground.svg?style=flat)](http://cocoadocs.org/docsets/KZPlayground)
 
-Playgrounds are awesome, Apple has made amazing job with Xcode 6 and Playgrounds were the icing on the cake. 
+Playgrounds are one of the niftiest features of Swift. They allow you to quickly test out bits of code and see results in real time without going through traditional edit-compile-run-debug cycle. 
 
-They have multitude of use cases, eg.
+"But surely playgrounds aren't possible in Objective-C" you say? ... In fact they can be much better than Swift ones.
 
-- prototype custom algorithms
-- design custom UI
-- learn the language or explore different API
-
-But since most of us still need to write Objective-C I give you
 # Objective-C Playgrounds
 Features:
 - Faster than Swift playgrounds (a lot)
 - Extra controls for tweaking:
-- Adjustable values
+	- values
+	- images
 - Auto-animated values
+- Synchronizing DSL's
 - Buttons
 - IDE agnostic, once you run it, you can modify the code even from vim.
 - Full iOS simulator and access to all iOS features, so you can prototype production ready code.
@@ -30,7 +27,7 @@ Features:
 - CocoaPods support, so you can add it to existing projects to experiment
 - Open source, anyone can contribute to make them better!
 
-It’s just a start.
+and it’s just a start.
 
 # Technical details
 ![](/Screenshots/playground.png?raw=true)
@@ -39,7 +36,7 @@ First, let’s establish naming:
 - Worksheet is a place where you can add views / controls and have interaction with them. You can use all the stuff you’d normally use with iOS like UIGestureRecognizers etc.
 - Tick counter - number of times the code changes have been loaded, multiply by the time it takes to compile + load your project and you see how much time you saved.
 
-## DSL’s
+## DSL’s - Beautiful and fast way to prototype.
 ### Timeline snapshots
 `KZPShow(obj)`
 - CALayer
@@ -69,17 +66,35 @@ KZPAction(@"Press me", ^{
 })
 ```
 
-- Adjusters
+- Images
+
+Picking an image from the library:
+
+```objc
+KZPAdjustImage(myImage);
+KZPWhenChanged(myImage, ^(UIImage *img) {
+  imageView.image = img;
+});
+```
+
+- Values
 
 ```objc
 KZPAdjustValue(scale, 0.5f, 1.0f) //- for floats
 KZPAdjustValue(position, 0, 100) //- for integers
 ```
 
-- Also available as block callbacks `KZPAdjust`
+you can also set default values:
+
+```objc
+KZPAdjustValue(position, 0, 100).defaultValue(50)
+```
+
+- Block callbacks `KZPAdjust` are also available.
 
 ### Animations
-- Block animation callback, wrap the changes you want to be dynamic in them. 
+- Block animation callback, code that will be executed with each screen refresh (display link). Useful for animating multiple values. 
+
 ```objc
 KZPAnimate(CGFloat from, CGFloat to, void (^block)(CGFloat));
 KZPAnimate(void (^block)());
@@ -90,6 +105,24 @@ KZPAnimate(void (^block)());
 ```objc
 KZPAnimateValue(rotation, 0, 360)
 KZPAnimateValueAR(scale, 0, 1)
+```
+
+### Coordinating code execution
+
+Executing code only once the value is set
+
+```objc
+KZPWhenSet(myImage, ^(UIImage *img) {
+	//! magic
+});
+```
+
+Executing code on value changes
+
+```objc
+KZPWhenChanged(myImage, ^(UIImage *img) {
+	//! magic
+});
 ```
 
 ### Storing variables
@@ -136,7 +169,7 @@ To apply your changes you have 2 approaches:
 2. (My Preferrence) Automatic on file save (IDE agnostic) using kicker gem in terminal: (N.B. you need to have the kicker gem installed, see below)  
 
 ```bash
-kicker -sql 0.016 FOLDER_WITH_SOURCE_FILES
+kicker -sql 0.05 FOLDER_WITH_SOURCE_FILES
 ```
 
 in case of Example project you'd call kicker from inside the project root folder (one containing Example and Pod)
@@ -164,17 +197,34 @@ In order to use the [kicker](https://github.com/alloy/kicker) gem, you need to i
 
 ## Roadmap & Contributing
 
+- Image picking from compiled .xcasset packages
 - Recompilation of Xib
 - Recompilation of Storyboards
 - Integrate graph displays.
 - Resizable timeline/worksheet splitter.
 - Nicer visualisations for Arrays && Dictionaries.
 
-Pull-requests and ideas for features are welcomed and encouraged.
+Pull-requests are welcomed.
 
 It took me around 12h to get from idea to release so the code is likely to change before 1.0 release.
 
 If you'd like to get specific features [I'm available for iOS consulting](http://www.merowing.info/about/).
+
+## Changelog
+
+### 0.3.0
+- Image picking.
+- Synchronisations.
+- Change observing.
+
+### 0.2.5
+- Persistent setup functionality.
+- Improved snapshots details.
+
+### 0.2.0
+- All files in the project can be now changed to trigger playground reload.
+- Better kicker setup.
+- Transient objects.
 
 ## License
 

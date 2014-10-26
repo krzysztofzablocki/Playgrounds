@@ -2,7 +2,7 @@ PODS:
   - dyci (0.1.5.6):
     - dyci/Injections
   - dyci/Injections (0.1.5.6)
-  - KZPlayground (0.2.0):
+  - KZPlayground (0.2.5):
     - dyci (~> 0.1.5.6)
     - RSSwizzle (~> 0.1.0)
   - RSSwizzle (0.1.0)
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   dyci: 86668b266b8a281cb6db02843150f6a210c34ee9
-  KZPlayground: 6f4420cc4c15b1764cd939a92287127a15cf9a7b
+  KZPlayground: baece034b5c37369274d271ee63790b33eabd0ff
   RSSwizzle: ab39962b7ec56d19c2318ec1127e253797121363
 
 COCOAPODS: 0.34.4
