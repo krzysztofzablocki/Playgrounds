@@ -111,7 +111,7 @@ static const NSInteger kAssetButtonIndex = 1;
   };
 
   KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
-  [timelineViewController presentViewController:assetCollectionViewController animated:YES completion:nil];
+  [timelineViewController presentViewController:[[UINavigationController alloc] initWithRootViewController:assetCollectionViewController] animated:YES completion:nil];
 }
 
 - (void)setSelectedImage:(UIImage*)image

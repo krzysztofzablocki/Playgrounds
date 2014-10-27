@@ -15,8 +15,8 @@
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* KZPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* KZPAppDelegate.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
+		CD877B8419FEB0C50030A67C /* avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD877B8319FEB0C50030A67C /* avatar.jpg */; };
 		CD8E45BD19F81867007A3C18 /* KZPlaygroundExample.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8E45BB19F81867007A3C18 /* KZPlaygroundExample.m */; };
-		CDD3E37E19F861D300CCBB71 /* avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDD3E37D19F861D300CCBB71 /* avatar.jpg */; };
 		F2B811B7D28E6CE8CE74D78D /* libPods-KZPlayground.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A57D5C63B495A8C999E1C /* libPods-KZPlayground.a */; };
 /* End PBXBuildFile section */
 
@@ -42,9 +42,9 @@
 		6E82892C6BA308F332E46010 /* KZPlayground.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = KZPlayground.podspec; path = ../KZPlayground.podspec; sourceTree = "<group>"; };
 		9F61326411E606042E17C037 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A90A57D5C63B495A8C999E1C /* libPods-KZPlayground.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KZPlayground.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD877B8319FEB0C50030A67C /* avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.jpg; sourceTree = "<group>"; };
 		CD8E45BB19F81867007A3C18 /* KZPlaygroundExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZPlaygroundExample.m; sourceTree = "<group>"; };
 		CD8E45BC19F81867007A3C18 /* KZPlaygroundExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZPlaygroundExample.h; sourceTree = "<group>"; };
-		CDD3E37D19F861D300CCBB71 /* avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.jpg; sourceTree = "<group>"; };
 		E25E825FE071E1EE4FE795D2 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -109,12 +109,12 @@
 		6003F593195388D20070C39A /* KZPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				CD877B8319FEB0C50030A67C /* avatar.jpg */,
 				CD8E45BB19F81867007A3C18 /* KZPlaygroundExample.m */,
 				CD8E45BC19F81867007A3C18 /* KZPlaygroundExample.h */,
 				6003F59C195388D20070C39A /* KZPAppDelegate.h */,
 				6003F59D195388D20070C39A /* KZPAppDelegate.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
-				CDD3E37D19F861D300CCBB71 /* avatar.jpg */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			path = KZPlayground;
@@ -197,10 +197,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD877B8419FEB0C50030A67C /* avatar.jpg in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				4737C20B19FD874300B7A62D /* Localizable.strings in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
-				CDD3E37E19F861D300CCBB71 /* avatar.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

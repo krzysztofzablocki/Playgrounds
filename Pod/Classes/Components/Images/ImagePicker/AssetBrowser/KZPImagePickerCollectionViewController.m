@@ -151,22 +151,8 @@
 {
   KZPImagePickerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
 
-//  /**
-//  * Decompress image on background thread before displaying it to prevent lag
-//  */
-//  NSInteger rowIndex = indexPath.row;
-//  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//
-//    UIImage *image = [UIImage decodedImageWithImage:[self.images objectAtIndex:indexPath.item]];
-//
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//      NSIndexPath *currentIndexPathForCell = [collectionView indexPathForCell:cell];
-//      if (currentIndexPathForCell.row == rowIndex) {
-//        cell.imageView.image = image;
-//      }
-//    });
-//  });
   NSUInteger index = (NSUInteger)indexPath.item;
+  //! TODO: add image decompression to avoid the decompression lag on first draw
   cell.imageView.image = self.images[index];
   cell.titleLabel.text = self.imageNames[index];
   return cell;
