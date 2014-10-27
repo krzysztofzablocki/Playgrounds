@@ -197,7 +197,6 @@ In order to use the [kicker](https://github.com/alloy/kicker) gem, you need to i
 
 ## Roadmap & Contributing
 
-- Image picking from compiled .xcasset packages
 - Recompilation of Xib
 - Recompilation of Storyboards
 - Integrate graph displays.
@@ -211,6 +210,10 @@ It took me around 12h to get from idea to release so the code is likely to chang
 If you'd like to get specific features [I'm available for iOS consulting](http://www.merowing.info/about/).
 
 ## Changelog
+
+### 0.3.1
+- XCAsset images picking.
+- Persisting selected images.
 
 ### 0.3.0
 - Image picking.

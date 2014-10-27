@@ -21,6 +21,7 @@ Fast robust interations make it easy to prototype custom UI/Algorithms or even l
 
   s.dependency 'dyci', '~> 0.1.5.6'
   s.dependency 'RSSwizzle', '~> 0.1.0'
+  s.dependency 'NHBalancedFlowLayout', '~> 0.2'
 
   s.prepare_command = <<-'CMD'
   cat << EOF > ../../.kick
