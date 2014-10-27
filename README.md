@@ -175,7 +175,7 @@ kicker -sql 0.05 FOLDER_WITH_SOURCE_FILES
 in case of Example project you'd call kicker from inside the project root folder (one containing Example and Pod)
 
 ```bash
-kicker -sql 0.016 Example
+kicker -sql 0.05 Example
 ```
 
 This will react to all changes in .m files and reload your playground.
