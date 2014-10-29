@@ -25,6 +25,8 @@ extern void __attribute__((overloadable)) KZPShow(UIImage *image);
 
 extern void __attribute__((overloadable)) KZPShow(NSString *format, ...);
 
+extern void __attribute__((overloadable)) KZPShow(NSArray *array);
+
 extern void __attribute__((overloadable)) KZPShow(id obj);
 
 @protocol KZPPresenterDebugProtocol <NSObject>

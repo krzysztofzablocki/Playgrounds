@@ -123,6 +123,23 @@ void __attribute__((overloadable)) KZPShow(NSString *format, ...) {
   KZPShowRegisterType(nil);
 }
 
+void __attribute__((overloadable)) KZPShow(NSArray *array) {
+    KZPShowRegisterType(@"NSArray");
+    
+    NSInteger limit = 100;
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = [NSString stringWithFormat:@"Array (count: %lu)", (unsigned long)[array count]];
+    label.numberOfLines = 1;
+    label.textColor = [UIColor blackColor];
+    CGSize size = [label sizeThatFits:CGSizeMake([KZPTimelineViewController sharedInstance].maxWidthForSnapshotView, CGFLOAT_MAX)];
+label.frame = CGRectMake(0, 0, size.width, size.height);
+    
+    [[KZPTimelineViewController sharedInstance] addView:label];
+    
+    KZPShowRegisterType(nil);
+}
+
 void __attribute__((overloadable)) KZPShow(id obj) {
   if ([obj respondsToSelector:@selector(kzp_debugImage)]) {
     UIImage *image = [obj performSelector:@selector(kzp_debugImage)];
@@ -139,6 +156,7 @@ void __attribute__((overloadable)) KZPShow(id obj) {
     SHOW_IF(UIBezierPath);
     SHOW_IF(UIImage);
     SHOW_IF(NSString);
+    SHOW_IF(NSArray);
 #undef SHOW_IF
   }
 

@@ -18,12 +18,25 @@
 
 - (void)run
 {
-  [self samplePlayground];
+    NSArray *array =  [NSArray arrayWithObjects:@1,@2,@3,@4, nil];
+    KZPShow(array);
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 128, 256)];
+    view.layer.borderColor = UIColor.yellowColor.CGColor;
+    view.layer.borderWidth = 2;
+    view.backgroundColor = UIColor.blueColor;
+    KZPShow(view);
+    
+    NSArray *array2 =  [NSArray arrayWithObjects:@1,@2,@3,@4, nil];
+    KZPShow(array2);
+//
+//  [self samplePlayground];
 //   [self sceneKit];
 }
 
 - (void)samplePlayground
 {
+    
   UIImage *img = [UIImage imageNamed:@"avatar.jpg"];
   KZPShow(img);
 
@@ -48,8 +61,8 @@
   [self.worksheetView addSubview:view];
 
   KZPAdjustValue(rotation, 0, 360);
-//  KZPAdjustValue(scale, 0.3f, 3.0f);
-  KZPAnimateValueAR(scale, 0.3, 3.0f);
+  KZPAdjustValue(scale, 0.3f, 3.0f);
+  //KZPAnimateValueAR(scale, 0.3, 3.0f);
 
   UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
   [self.worksheetView addGestureRecognizer:panGestureRecognizer];
