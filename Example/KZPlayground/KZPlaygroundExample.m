@@ -18,30 +18,38 @@
 
 - (void)run
 {
-    NSArray *array =  [NSArray arrayWithObjects:@1,@2,@3,@4, nil];
-    KZPShow(array);
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 128, 256)];
-    view.layer.borderColor = UIColor.yellowColor.CGColor;
-    view.layer.borderWidth = 2;
-    view.backgroundColor = UIColor.blueColor;
-    KZPShow(view);
-    
-    NSArray *array2 =  [NSArray arrayWithObjects:@1,@2,@3,@4, nil];
-    KZPShow(array2);
-//
-//  [self samplePlayground];
+  [self backgroundImagePickingExample];
+  [self samplePlayground];
 //   [self sceneKit];
+
+}
+
+- (void)backgroundImagePickingExample
+{
+  UIImageView *imageView = [UIImageView new];
+  imageView.center = self.worksheetView.center;
+  [self.worksheetView addSubview:imageView];
+
+  KZPAdjustImage(myImage);
+  KZPWhenChanged(myImage, (^(UIImage *img) {
+    imageView.image = img;
+    [imageView sizeToFit];
+    imageView.center = self.worksheetView.center;
+  }));
 }
 
 - (void)samplePlayground
 {
-    
   UIImage *img = [UIImage imageNamed:@"avatar.jpg"];
   KZPShow(img);
 
   UIImage *bigImage = [UIImage imageNamed:@"foldify"];
   KZPShow(bigImage);
+  
+  UILabel *label = [[UILabel alloc] init];
+  label.text = NSLocalizedString(@"main.hello", nil);
+  [label sizeToFit];
+  KZPShow(label);
 
   UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 128, 256)];
   view.layer.borderColor = UIColor.yellowColor.CGColor;
@@ -60,8 +68,8 @@
   view.center = self.worksheetView.center;
   [self.worksheetView addSubview:view];
 
-  KZPAdjustValue(rotation, 0, 360);
-  KZPAdjustValue(scale, 0.3f, 3.0f);
+  KZPAdjustValue(rotation, 0, 360).defaultValue(120);
+  KZPAdjustValue(scale, 0.3f, 3.0f).defaultValue(1.5f);
   //KZPAnimateValueAR(scale, 0.3, 3.0f);
 
   UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];

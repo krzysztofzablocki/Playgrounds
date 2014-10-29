@@ -12,19 +12,19 @@
 
 #import <objc/runtime.h>
 
-static const void *kSliderBlockKey = &kSliderBlockKey;
 static const void *kLastValuesKey = &kLastValuesKey;
+static const void *kAdjusterLifetimeKey = &kAdjusterLifetimeKey;
 
-extern void __attribute__((overloadable)) KZPAdjust(NSString *name, int from, int to, void (^block)(int)) {
-  [KZPValueAdjustComponent addValueAdjustWithName:name fromValue:from toValue:to withBlock:^(CGFloat d) {
+extern KZPValueAdjustComponent *__attribute__((overloadable)) KZPAdjust(NSString *name, int from, int to, void (^block)(int)) {
+  return [KZPValueAdjustComponent addValueAdjustWithName:name fromValue:from toValue:to withBlock:^(CGFloat d) {
     int rounded = (int)roundf(d);
     block(rounded);
     return (CGFloat)rounded;
   }];
 }
 
-extern void __attribute__((overloadable)) KZPAdjust(NSString *name, float from, float to, void (^block)(float)) {
-  [KZPValueAdjustComponent addValueAdjustWithName:name fromValue:(CGFloat)from toValue:(CGFloat)to withBlock:^CGFloat(CGFloat d) {
+extern KZPValueAdjustComponent *__attribute__((overloadable)) KZPAdjust(NSString *name, float from, float to, void (^block)(float)) {
+  return [KZPValueAdjustComponent addValueAdjustWithName:name fromValue:(CGFloat)from toValue:(CGFloat)to withBlock:^CGFloat(CGFloat d) {
     block((float)d);
     return d;
   }];
@@ -32,48 +32,100 @@ extern void __attribute__((overloadable)) KZPAdjust(NSString *name, float from, 
 
 
 @interface KZPValueAdjustComponent ()
+@property(nonatomic, weak) UISlider *valueSlider;
+@property(nonatomic, weak) UILabel *nameLabel;
+@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) CGFloat (^changeBlock)(CGFloat);
 @end
 
 @implementation KZPValueAdjustComponent
-+ (void)addValueAdjustWithName:(NSString *)name fromValue:(CGFloat)from toValue:(CGFloat)to withBlock:(CGFloat (^)(CGFloat))block
+
++ (KZPValueAdjustComponent *)addValueAdjustWithName:(NSString *)name fromValue:(CGFloat)from toValue:(CGFloat)to withBlock:(CGFloat (^)(CGFloat))block
 {
+  return [[KZPValueAdjustComponent alloc] initWithName:name fromValue:from toValue:to changeBlock:block];
+}
+
+- (instancetype)initWithName:(NSString *)name fromValue:(CGFloat)fromValue toValue:(CGFloat)toValue changeBlock:(CGFloat (^)(CGFloat))changeBlock
+{
+  self = [super init];
+  if (!self) {
+    return nil;
+  }
+
   KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
+  CGFloat controlWidth = timelineViewController.maxWidthForSnapshotView;
 
-  UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, timelineViewController.maxWidthForSnapshotView, 44)];
-  slider.minimumValue = from;
-  slider.maximumValue = to;
-  [slider sizeToFit];
+  UISlider *slider = [self createSliderWithWidth:controlWidth minValue:fromValue maxValue:toValue];
+  UILabel *nameLabel = [self createNameLabelWithWidth:controlWidth];
 
-  UILabel *nameLabel = [UILabel new];
-  nameLabel.textColor = [UIColor blackColor];
-  nameLabel.text = [NSString stringWithFormat:@"%@ %.2f", name, to];
-  nameLabel.textAlignment = NSTextAlignmentCenter;
-  [nameLabel sizeToFit];
+  self.name = name;
+  self.valueSlider = slider;
+  self.nameLabel = nameLabel;
+  self.changeBlock = changeBlock;
 
-  __weak typeof(self) weakSelf = self;
-  void (^sliderBlock)(CGFloat) = ^(CGFloat value) {
-    CGFloat adjustedValue = block(value);
-    nameLabel.text = [NSString stringWithFormat:@"%@ %.2f", name, adjustedValue];
-    weakSelf.lastValues[name] = @(adjustedValue);
-  };
-
-  objc_setAssociatedObject(slider, kSliderBlockKey, sliderBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
   [slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
 
   [timelineViewController addView:nameLabel];
   [timelineViewController addView:slider];
 
-  NSNumber *previousValue = weakSelf.lastValues[name];
-  float value = previousValue ? previousValue.floatValue : from;
-  [slider setValue:value];
-  sliderBlock(value);
+  //! bind adjuster lifetime to the slider itself
+  objc_setAssociatedObject(slider, kAdjusterLifetimeKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+  NSNumber *previousValue = self.class.lastValues[name];
+  float value = previousValue ? previousValue.floatValue : fromValue;
+  [self setCurrentValueWithoutPersistence:value];
+
+  return self;
 }
 
-+ (void)sliderChanged:(UISlider *)sliderChanged
+- (void (^)(CGFloat))defaultValue
 {
-  void(^block)(CGFloat) = objc_getAssociatedObject(sliderChanged, kSliderBlockKey);
-  block(sliderChanged.value);
+  __weak typeof(self) weakSelf = self;
+  return ^(CGFloat value) {
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    BOOL isInitializing = ![strongSelf.class lastValues][strongSelf.name];
+    if (isInitializing) {
+      [strongSelf setCurrentValueWithoutPersistence:value];
+    }
+  };
+
 }
+
+- (UISlider *)createSliderWithWidth:(CGFloat)sliderWidth minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue
+{
+  UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, sliderWidth, 44)];
+  slider.minimumValue = minValue;
+  slider.maximumValue = maxValue;
+  [slider sizeToFit];
+  return slider;
+}
+
+- (UILabel *)createNameLabelWithWidth:(CGFloat)width
+{
+  UILabel *nameLabel = [UILabel new];
+  nameLabel.textColor = [UIColor blackColor];
+  nameLabel.textAlignment = NSTextAlignmentCenter;
+  nameLabel.text = @"Sizing";
+  [nameLabel sizeToFit];
+  nameLabel.frame = CGRectMake(0, 0, width, CGRectGetHeight(nameLabel.bounds));
+  return nameLabel;
+}
+
+- (void)setCurrentValueWithoutPersistence:(CGFloat)value
+{
+  CGFloat adjustedValue = self.changeBlock(value);
+  [self.valueSlider setValue:adjustedValue];
+  self.nameLabel.text = [NSString stringWithFormat:@"%@ %.2f", self.name, adjustedValue];
+}
+
+- (void)sliderChanged:(UISlider *)sliderChanged
+{
+  CGFloat adjustedValue = self.changeBlock(sliderChanged.value);
+  self.nameLabel.text = [NSString stringWithFormat:@"%@ %.2f", self.name, adjustedValue];
+  self.class.lastValues[self.name] = @(adjustedValue);
+}
+
+#pragma mark - Helpers
 
 + (NSMutableDictionary *)lastValues
 {

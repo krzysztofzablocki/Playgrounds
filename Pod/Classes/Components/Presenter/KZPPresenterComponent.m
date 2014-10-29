@@ -165,7 +165,6 @@ void __attribute__((overloadable)) KZPShow(id obj) {
 
 @interface KZPPresenterComponent () <KZPSnapshotView>
 @property(nonatomic, weak) UIImageView *imageView;
-@property(nonatomic, strong) UIImage *image;
 @property(nonatomic, copy) NSString *type;
 @end
 
@@ -197,6 +196,13 @@ void __attribute__((overloadable)) KZPShow(id obj) {
 {
   return YES;
 }
+
+- (void)setImage:(UIImage *)image
+{
+  _image = image;
+  self.imageView.image = image;
+}
+
 
 - (UIViewController *)extraInfoController
 {
