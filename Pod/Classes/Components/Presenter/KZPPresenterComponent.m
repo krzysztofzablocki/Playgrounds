@@ -126,16 +126,27 @@ void __attribute__((overloadable)) KZPShow(NSString *format, ...) {
 void __attribute__((overloadable)) KZPShow(NSArray *array) {
     KZPShowRegisterType(@"NSArray");
     
-    NSInteger limit = 100;
+    UILabel *firstLabel = [[UILabel alloc] init];
+    firstLabel.text = [NSString stringWithFormat:@"Array (count: %lu) [", (unsigned long)[array count]];
+    firstLabel.numberOfLines = 1;
+    firstLabel.textColor = [UIColor blackColor];
+    CGSize size = [firstLabel sizeThatFits:CGSizeMake([KZPTimelineViewController sharedInstance].maxWidthForSnapshotView, CGFLOAT_MAX)];
+    firstLabel.frame = CGRectMake(0, 0, size.width, size.height);
     
-    UILabel *label = [[UILabel alloc] init];
-    label.text = [NSString stringWithFormat:@"Array (count: %lu)", (unsigned long)[array count]];
-    label.numberOfLines = 1;
-    label.textColor = [UIColor blackColor];
-    CGSize size = [label sizeThatFits:CGSizeMake([KZPTimelineViewController sharedInstance].maxWidthForSnapshotView, CGFLOAT_MAX)];
-label.frame = CGRectMake(0, 0, size.width, size.height);
+    [[KZPTimelineViewController sharedInstance] addView:firstLabel];
     
-    [[KZPTimelineViewController sharedInstance] addView:label];
+    for (id obj in array) {
+        KZPShow(obj);
+    }
+    
+    UILabel *lastLabel = [[UILabel alloc] init];
+    lastLabel.text = [NSString stringWithFormat:@"]"];
+    lastLabel.numberOfLines = 1;
+    lastLabel.textColor = [UIColor blackColor];
+    size = [lastLabel sizeThatFits:CGSizeMake([KZPTimelineViewController sharedInstance].maxWidthForSnapshotView, CGFLOAT_MAX)];
+    lastLabel.frame = CGRectMake(0, 0, size.width, size.height);
+    
+    [[KZPTimelineViewController sharedInstance] addView:lastLabel];
     
     KZPShowRegisterType(nil);
 }
@@ -147,10 +158,14 @@ void __attribute__((overloadable)) KZPShow(id obj) {
     return;
   }
 
+  id showObj = nil;
   if ([obj respondsToSelector:@selector(debugQuickLookObject)]) {
-    id debugObject = [obj debugQuickLookObject];
+      showObj = [obj debugQuickLookObject];
+  } else {
+      showObj = obj;
+  }
 
-#define SHOW_IF(type) if([debugObject isKindOfClass:type.class]) {KZPShow((type*)debugObject); return;}
+#define SHOW_IF(type) if([showObj isKindOfClass:type.class]) {KZPShow((type*)showObj); return;}
     SHOW_IF(CALayer);
     SHOW_IF(UIView);
     SHOW_IF(UIBezierPath);
@@ -158,7 +173,6 @@ void __attribute__((overloadable)) KZPShow(id obj) {
     SHOW_IF(NSString);
     SHOW_IF(NSArray);
 #undef SHOW_IF
-  }
 
   KZPShow([NSString stringWithFormat:@"%@ : %@", NSStringFromClass([obj class]), [obj description]]);
 }
