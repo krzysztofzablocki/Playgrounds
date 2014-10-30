@@ -124,7 +124,12 @@ UIImage* __attribute__((overloadable)) KZPShowInternal(UIImage *image) {
 UIImage* __attribute__((overloadable)) KZPShowInternal(NSString *format, va_list *args) {
   KZPShowRegisterType(@"NSString");
 
-  NSString *message = [[NSString alloc] initWithFormat:format arguments:*args];
+  NSString *message = nil;
+  if (args) {
+    message = [[NSString alloc] initWithFormat:format arguments:*args];
+  } else {
+    message = format;
+  }
 
   UILabel *label = [[UILabel alloc] init];
   label.text = message;
