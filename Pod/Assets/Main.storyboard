@@ -18,6 +18,9 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJV-BR-ErW" userLabel="Left Container">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="3bh-4m-r6S"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="era-k8-Vln" kind="embed" id="mis-eS-aPs"/>
                                 </connections>
@@ -30,15 +33,21 @@
                         <constraints>
                             <constraint firstItem="yJV-BR-ErW" firstAttribute="bottom" secondItem="HY5-88-AZc" secondAttribute="top" id="AJE-pr-7Py"/>
                             <constraint firstItem="X3m-3u-U0W" firstAttribute="bottom" secondItem="HY5-88-AZc" secondAttribute="top" id="CHq-to-XBK"/>
-                            <constraint firstItem="X3m-3u-U0W" firstAttribute="leading" secondItem="ZZW-8b-B39" secondAttribute="leading" constant="240" id="KFu-na-jR0"/>
+                            <constraint firstAttribute="centerY" secondItem="yJV-BR-ErW" secondAttribute="centerY" id="GPu-t6-W27"/>
                             <constraint firstItem="X3m-3u-U0W" firstAttribute="top" secondItem="ZZW-8b-B39" secondAttribute="top" id="Mx6-7i-d4L"/>
                             <constraint firstItem="yJV-BR-ErW" firstAttribute="leading" secondItem="ZZW-8b-B39" secondAttribute="leading" id="X4T-zb-oDu"/>
                             <constraint firstAttribute="trailing" secondItem="X3m-3u-U0W" secondAttribute="trailing" id="ciq-FH-zUO"/>
                             <constraint firstItem="yJV-BR-ErW" firstAttribute="top" secondItem="X3m-3u-U0W" secondAttribute="top" id="yJD-9q-HfS"/>
                             <constraint firstItem="X3m-3u-U0W" firstAttribute="leading" secondItem="yJV-BR-ErW" secondAttribute="trailing" id="zY0-1R-PDx"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yJD-9q-HfS"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="leadingTimelineConstraint" destination="X4T-zb-oDu" id="5vd-Zi-IP7"/>
                         <outlet property="timelineContainerView" destination="yJV-BR-ErW" id="mgB-eq-BhX"/>
                         <outlet property="worksheetContainerView" destination="X3m-3u-U0W" id="1fC-uF-jpP"/>
                     </connections>

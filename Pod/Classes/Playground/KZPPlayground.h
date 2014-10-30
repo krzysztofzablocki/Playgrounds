@@ -12,7 +12,7 @@
 #import "KZPImagePickerComponent.h"
 
 @import Foundation;
-@import UIKit;
+@import UIKit;@class KZPPlaygroundViewController;
 
 extern NSString *const KZPPlaygroundDidChangeImplementationNotification;
 
@@ -23,6 +23,7 @@ extern NSString *const KZPPlaygroundDidChangeImplementationNotification;
 @interface KZPPlayground : NSObject
 @property(nonatomic, weak, readonly) UIView *worksheetView;
 @property(nonatomic, weak, readonly) UIViewController *viewController;
+@property(nonatomic, weak, readonly) KZPPlaygroundViewController *playgroundViewController;
 
 //! objects store that will be re-created with recompilation, use eg. instead of instance variables
 @property(nonatomic, strong, readonly) NSMutableDictionary *transientObjects;

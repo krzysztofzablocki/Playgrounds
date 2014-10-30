@@ -6,7 +6,7 @@
 
 
 #import <objc/runtime.h>
-#import "KZPPlaygroundViewController.h"
+#import <KZPlayground/KZPPlaygroundViewController.h>
 #import "KZPTimelineViewController.h"
 #import "KZPPlayground+Internal.h"
 
@@ -14,6 +14,7 @@
 @property(weak, nonatomic) IBOutlet UIView *timelineContainerView;
 @property(weak, nonatomic) IBOutlet UIView *worksheetContainerView;
 @property(strong, nonatomic) KZPPlayground *currentPlayground;
+@property(unsafe_unretained, nonatomic) IBOutlet NSLayoutConstraint *leadingTimelineConstraint;
 @end
 
 @implementation KZPPlaygroundViewController
@@ -22,6 +23,21 @@
 {
   return [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:self]] instantiateInitialViewController];
 }
+
+- (void)setTimelineHidden:(BOOL)hidden
+{
+  _timelineHidden = hidden;
+
+  if ([self isViewLoaded]) {
+    if (hidden) {
+      self.leadingTimelineConstraint.constant = -CGRectGetWidth(self.timelineContainerView.bounds);
+    } else {
+      self.leadingTimelineConstraint.constant = 0;
+    }
+    [self.view layoutIfNeeded];
+  }
+}
+
 
 - (void)dealloc
 {
@@ -41,6 +57,7 @@
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     [KZPTimelineViewController setSharedInstance:self.timelineViewController];
+    self.timelineHidden = self.timelineHidden;
     self.currentPlayground = [self createActivePlayground];
     [self.timelineViewController playgroundSetupCompleted];
     [self executePlayground];
@@ -60,6 +77,7 @@
 {
   self.currentPlayground.worksheetView = [self cleanWorksheet];
   self.currentPlayground.viewController = self;
+  self.currentPlayground.playgroundViewController = self;
   [self.currentPlayground.transientObjects removeAllObjects];
   [self dismissViewControllerAnimated:NO completion:nil];
 
