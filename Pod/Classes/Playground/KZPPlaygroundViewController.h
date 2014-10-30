@@ -9,5 +9,8 @@
 @import UIKit;
 
 @interface KZPPlaygroundViewController : UIViewController
+@property(nonatomic, assign) BOOL timelineHidden;
+
 + (instancetype)playgroundViewController;
+
 @end

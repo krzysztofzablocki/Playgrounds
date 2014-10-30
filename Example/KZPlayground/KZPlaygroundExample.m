@@ -7,7 +7,6 @@
 
 #import "KZPlaygroundExample.h"
 #import "KZPPlayground+Internal.h"
-
 @import SceneKit;
 
 @implementation KZPlaygroundExample

@@ -9,6 +9,7 @@
 #import "KZPPlayground.h"
 #import "RSSwizzle.h"
 #import "SFDynamicCodeInjection.h"
+#import "KZPPlaygroundViewController.h"
 
 NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygroundDidChangeImplementationNotification";
 
@@ -39,6 +40,7 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 @interface KZPPlayground ()
 @property(nonatomic, weak, readwrite) UIView *worksheetView;
 @property(nonatomic, weak, readwrite) UIViewController *viewController;
+@property(nonatomic, weak, readwrite) KZPPlaygroundViewController *playgroundViewController;
 @end
 
 @implementation KZPPlayground
