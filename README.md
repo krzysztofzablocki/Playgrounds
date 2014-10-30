@@ -213,6 +213,9 @@ If you'd like to get specific features [I'm available for iOS consulting](http:/
 
 ## Changelog
 
+### 0.3.2
+- Ability to hide timeline
+
 ### 0.3.1
 - XCAsset images picking.
 - Persisting selected images.

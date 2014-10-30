@@ -10,6 +10,7 @@
 #import "KZPActionComponent.h"
 #import "KZPSynchronizationComponent.h"
 #import "KZPImagePickerComponent.h"
+#import "KZPPlaygroundViewController.h"
 
 @import Foundation;
 @import UIKit;@class KZPPlaygroundViewController;
