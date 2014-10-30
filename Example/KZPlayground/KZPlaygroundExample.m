@@ -43,7 +43,7 @@
   KZPShow(img);
 
   UIImage *bigImage = [UIImage imageNamed:@"foldify"];
-  KZPShow(bigImage);
+  KZPShow((id)bigImage);
   
   UILabel *label = [[UILabel alloc] init];
   label.text = NSLocalizedString(@"main.hello", nil);
@@ -85,8 +85,8 @@
   [bezierPath setLineDash:pattern count:4 phase:2];
   KZPShow(bezierPath);
     
-  NSArray *viewArray = @[img, @1,bigImage, @2, label];
-  KZPShow(viewArray);
+//  NSArray *viewArray = @[img, @1,bigImage, @2, label];
+//  KZPShow(viewArray);
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer
