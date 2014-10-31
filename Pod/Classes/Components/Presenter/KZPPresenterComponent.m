@@ -31,8 +31,6 @@ UIImage* __attribute__((overloadable)) KZPShowInternal(id obj, va_list *args);
 
 UIImage* __attribute__((overloadable)) KZPShowInternal(id obj);
 
-BOOL KZPSupportedType(id obj);
-
 static NSString *KZPShowType = nil;
 
 void KZPShowRegisterType(NSString *format, ...) {
@@ -144,20 +142,17 @@ UIImage* __attribute__((overloadable)) KZPShowInternal(NSString *format, va_list
 UIImage* __attribute__((overloadable)) KZPShowInternal(NSArray *array) {
   KZPShowRegisterType(@"NSArray");
   
-  UIImage *stringImage = KZPShowInternal([NSString stringWithFormat:@"NSArray (Count:%lu)",(unsigned long)[array count]]);
-  
   //Render max the first 100 limit
   NSInteger limit = MIN (100, [array count]);
   
   //Create a matrix of previews
   NSInteger matrixHorizontalSize = 3;
   CGFloat previewSize = [KZPTimelineViewController sharedInstance].maxWidthForSnapshotView/matrixHorizontalSize;
-  NSInteger numberOfRow = ceil(limit/matrixHorizontalSize);
+  NSInteger numberOfRow = ceilf(limit/(float)matrixHorizontalSize);
   CGFloat matrixWidth = previewSize * matrixHorizontalSize;
-  CGFloat matrixHeight = matrixWidth*numberOfRow;
+  CGFloat matrixHeight = round((matrixWidth/3)*numberOfRow);
   
-  UIGraphicsBeginImageContextWithOptions(CGSizeMake(matrixWidth, matrixHeight+stringImage.size.height), NO, 0);
-  [stringImage drawInRect:CGRectMake(0, 0, stringImage.size.width, stringImage.size.height)];
+  UIGraphicsBeginImageContextWithOptions(CGSizeMake(matrixWidth, matrixHeight), NO, 0);
   
   NSUInteger counter = 0;
   for (id obj in array) {
@@ -166,7 +161,7 @@ UIImage* __attribute__((overloadable)) KZPShowInternal(NSArray *array) {
     }
     UIImage *image = KZPShowInternal(obj);
     
-    CGFloat y= (floor(counter/matrixHorizontalSize)*previewSize)+stringImage.size.height;
+    CGFloat y = (floor(counter/matrixHorizontalSize)*previewSize);
     CGFloat x = (counter%matrixHorizontalSize)*previewSize;
     CGFloat height = image.size.height;
     CGFloat width = image.size.width;
@@ -184,10 +179,8 @@ UIImage* __attribute__((overloadable)) KZPShowInternal(NSArray *array) {
   UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   
-  KZPShow(image);
-  
   KZPShowRegisterType(nil);
-  return nil;
+  return image;
 }
 
 UIImage* __attribute__((overloadable)) KZPShowInternal(id obj, va_list *args) {
@@ -216,20 +209,6 @@ UIImage* __attribute__((overloadable)) KZPShowInternal(id obj)
   return KZPShowInternal(obj, nil);
 }
 
-BOOL KZPSupportedType(id obj)
-{
-  if ([obj isKindOfClass:[CALayer class]] ||
-      [obj isKindOfClass:[UIView class]] ||
-      [obj isKindOfClass:[UIBezierPath class]] ||
-      [obj isKindOfClass:[UIImage class]] ||
-      [obj isKindOfClass:[NSString class]] ||
-      [obj isKindOfClass:[NSArray class]]) {
-    return YES;
-  }
-  
-  return NO;
-}
-
 extern void KZPShow(id obj, ...) {
   if ([obj respondsToSelector:@selector(kzp_debugImage)]) {
     UIImage *image = [obj performSelector:@selector(kzp_debugImage)];
@@ -240,24 +219,18 @@ extern void KZPShow(id obj, ...) {
   id showObj = nil;
   if ([obj respondsToSelector:@selector(debugQuickLookObject)]) {
       showObj = [obj debugQuickLookObject];
-  } else {
-      showObj = obj;
-  }
-  
-  UIImage *image = nil;
-  if (KZPSupportedType(obj)) {
+  } else if ([obj isKindOfClass:[NSString class]]){
     va_list(args);
     va_start(args, obj);
-    image = KZPShowInternal(obj, &args);
+    showObj = [[NSString alloc] initWithFormat:obj arguments:args];
     va_end(args);
   } else {
-    image = KZPShowInternal([NSString stringWithFormat:@"%@ : %@", NSStringFromClass([obj class]), [obj description]]);
+    showObj = obj;
   }
   
-  
-  KZPPresenterComponent *presenter = [[KZPPresenterComponent alloc] initWithImage:image type:KZPShowType];
+  KZPPresenterComponent *presenter = [[KZPPresenterComponent alloc] initWithComponent:showObj];
   if (!presenter) {
-    KZPShow(@"Error: Unable to present image with size %@", NSStringFromCGSize(image.size));
+    KZPShow(@"Error: Unable to present image with size %@", NSStringFromCGSize(presenter.frame.size));
     return;
   }
   [[KZPTimelineViewController sharedInstance] addView:presenter];
@@ -269,27 +242,41 @@ extern void KZPShow(id obj, ...) {
 @end
 
 @implementation KZPPresenterComponent
-- (instancetype)initWithImage:(UIImage *)image type:(NSString *)type
+
+- (instancetype)initWithComponent:(id)component;
 {
-  self = [super initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+  self = [super initWithFrame:CGRectZero];
   if (!self) {
     return nil;
   }
 
-  _image = image;
-  _type = [type copy];
+  self.component = component;
+  
   [self setup];
+  
   return self;
 }
 
 - (void)setup
 {
-  UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
+  UIImage *image = KZPShowInternal(_component);
+  
+  UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.frame = self.bounds;
   imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [self addSubview:imageView];
   self.imageView = imageView;
+  self.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+}
+
+- (void)setComponent:(id)component
+{
+  _component = component;
+  
+  UIImage *image = KZPShowInternal(_component);
+  self.imageView.image = image;
+  self.type = NSStringFromClass([_component class]);
 }
 
 - (BOOL)hasExtraInformation
@@ -297,18 +284,12 @@ extern void KZPShow(id obj, ...) {
   return YES;
 }
 
-- (void)setImage:(UIImage *)image
-{
-  _image = image;
-  self.imageView.image = image;
-}
-
 
 - (UIViewController *)extraInfoController
 {
   KZPPresenterInfoViewController *presenterInfoViewController = [KZPPresenterInfoViewController new];
-  NSString *title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.image.size.width, self.image.size.height];
-  [presenterInfoViewController setFromImage:self.image title:title];
+  NSString *title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.imageView.image.size.width, self.imageView.image.size.height];
+  [presenterInfoViewController setFromImage:self.imageView.image title:title];
   return presenterInfoViewController;
 }
 

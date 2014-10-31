@@ -12,7 +12,7 @@
 @implementation KZPlaygroundExample
 - (void)setup
 {
-  KZPShow(@"Setup snapshot");
+//  KZPShow(@"Setup snapshot");
 }
 
 - (void)run
@@ -43,7 +43,7 @@
   KZPShow(img);
 
   UIImage *bigImage = [UIImage imageNamed:@"foldify"];
-  KZPShow(bigImage);
+  //KZPShow(bigImage);
   
   UILabel *label = [[UILabel alloc] init];
   label.text = NSLocalizedString(@"main.hello", nil);
@@ -84,7 +84,7 @@
   CGFloat pattern[] = { 9, 4, 0, 1 };
   [bezierPath setLineDash:pattern count:4 phase:2];
   KZPShow(bezierPath);
-    
+  
   NSArray *viewArray = @[img, @1,bigImage, @2, label];
   KZPShow(viewArray);
 }

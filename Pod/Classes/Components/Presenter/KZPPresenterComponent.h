@@ -41,7 +41,9 @@ extern void KZPShow(id obj, ...);
 @end
 
 @interface KZPPresenterComponent : UIView <KZPComponent>
-@property(nonatomic, strong) UIImage *image;
 
-- (instancetype)initWithImage:(UIImage *)image type:(NSString *)type;
+@property(nonatomic, strong) id component;
+
+- (instancetype)initWithComponent:(id)component;
+
 @end
