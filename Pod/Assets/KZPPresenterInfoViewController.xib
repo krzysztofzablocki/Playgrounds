@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KZPPresenterInfoViewController">
             <connections>
-                <outlet property="imageView" destination="LmK-wh-dGG" id="Rlw-FC-bKv"/>
+                <outlet property="scrollView" destination="hfE-8D-KMG" id="TDH-tO-9GO"/>
                 <outlet property="titleLabel" destination="669-ax-8yc" id="VA6-6l-s2C"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,18 +22,19 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="579.5" translatesAutoresizingMaskIntoConstraints="NO" id="LmK-wh-dGG">
-                    <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                </imageView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfE-8D-KMG">
+                    <rect key="frame" x="0.0" y="21" width="600" height="579"/>
+                </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="LmK-wh-dGG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NXV-4J-GNg"/>
+                <constraint firstAttribute="trailing" secondItem="hfE-8D-KMG" secondAttribute="trailing" id="GBc-lD-fdX"/>
+                <constraint firstItem="hfE-8D-KMG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Nbu-8Z-iiW"/>
                 <constraint firstAttribute="trailing" secondItem="669-ax-8yc" secondAttribute="trailing" id="Rbd-V5-rGz"/>
-                <constraint firstAttribute="trailing" secondItem="LmK-wh-dGG" secondAttribute="trailing" id="T8O-Mr-Lrq"/>
                 <constraint firstItem="669-ax-8yc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YOp-CG-LCE"/>
                 <constraint firstItem="669-ax-8yc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fee-Gp-foJ"/>
-                <constraint firstItem="LmK-wh-dGG" firstAttribute="top" secondItem="669-ax-8yc" secondAttribute="bottom" id="iuH-yN-UN2"/>
+                <constraint firstAttribute="bottom" secondItem="hfE-8D-KMG" secondAttribute="bottom" id="jdk-3K-kuD"/>
+                <constraint firstItem="hfE-8D-KMG" firstAttribute="top" secondItem="669-ax-8yc" secondAttribute="bottom" id="nSb-un-WQ9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="885" y="605"/>

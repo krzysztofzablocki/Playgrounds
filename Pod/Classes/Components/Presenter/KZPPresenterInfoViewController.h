@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface KZPPresenterInfoViewController : UIViewController
-- (void)setFromImage:(UIImage *)image title:(NSString *)title;
+- (void)setFromImages:(NSArray *)images title:(NSString *)title;
 @end

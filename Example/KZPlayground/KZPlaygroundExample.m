@@ -85,7 +85,7 @@
   [bezierPath setLineDash:pattern count:4 phase:2];
   KZPShow(bezierPath);
   
-  NSArray *viewArray = @[img, @1,bigImage, @2, label];
+  NSArray *viewArray = @[img, @1,bigImage, @2, label,img, @1,bigImage, @2, label,img, @1,bigImage, @2, label,img, @1,bigImage, @2, label,];
   KZPShow(viewArray);
 }
 

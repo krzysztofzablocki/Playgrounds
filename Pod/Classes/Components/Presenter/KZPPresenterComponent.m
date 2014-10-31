@@ -287,9 +287,23 @@ extern void KZPShow(id obj, ...) {
 
 - (UIViewController *)extraInfoController
 {
+  NSMutableArray *m_images = [NSMutableArray new];
+  NSString *title = nil;
+  
+  if ([self.component isKindOfClass:[NSArray class]]) {
+    for (id obj in self.component) {
+      UIImage *image = KZPShowInternal(obj);
+      [m_images addObject:image];
+    }
+    title = [NSString stringWithFormat:@"%@ count:%d", self.type, [self.component count]];
+  } else {
+    [m_images addObject:self.imageView.image];
+    title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.imageView.image.size.width, self.imageView.image.size.height];
+  }
+  
+  
   KZPPresenterInfoViewController *presenterInfoViewController = [KZPPresenterInfoViewController new];
-  NSString *title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.imageView.image.size.width, self.imageView.image.size.height];
-  [presenterInfoViewController setFromImage:self.imageView.image title:title];
+  [presenterInfoViewController setFromImages:[m_images copy] title:title];
   return presenterInfoViewController;
 }
 
