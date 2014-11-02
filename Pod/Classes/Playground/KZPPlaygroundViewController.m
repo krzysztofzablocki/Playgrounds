@@ -79,7 +79,10 @@
   self.currentPlayground.viewController = self;
   self.currentPlayground.playgroundViewController = self;
   [self.currentPlayground.transientObjects removeAllObjects];
-  [self dismissViewControllerAnimated:NO completion:nil];
+  if (self.presentedViewController)
+  {
+    [self dismissViewControllerAnimated:NO completion:nil];
+  }
 
   [self.timelineViewController reset];
   [[self findClassesConformingToProtocol:@protocol(KZPComponent)] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
