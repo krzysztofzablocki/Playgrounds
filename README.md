@@ -207,10 +207,6 @@ In order to use the [kicker](https://github.com/alloy/kicker) gem, you need to i
 
 Pull-requests are welcomed.
 
-It took me around 12h to get from idea to release so the code is likely to change before 1.0 release.
-
-If you'd like to get specific features [I'm available for iOS consulting](http://www.merowing.info/about/).
-
 ## Changelog
 
 ### 0.3.2
@@ -246,6 +242,8 @@ Krzysztof Zablocki, krzysztof.zablocki@pixle.pl
 [Follow me on twitter.](http://twitter.com/merowing_)
 
 [Check-out my blog](http://merowing.info) or [GitHub profile](https://github.com/krzysztofzablocki) for more cool stuff.
+
+If you'd like to support my tools and tutorials, you can do that [via Patreon](http://www.patreon.com/merowing)
 
 #### Attribution
 
