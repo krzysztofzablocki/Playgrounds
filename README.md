@@ -243,8 +243,6 @@ Krzysztof Zablocki, krzysztof.zablocki@pixle.pl
 
 [Check-out my blog](http://merowing.info) or [GitHub profile](https://github.com/krzysztofzablocki) for more cool stuff.
 
-If you'd like to support my tools and tutorials, you can do that [via Patreon](http://www.patreon.com/merowing)
-
 #### Attribution
 
 SceneKit example code has been taken from [David Ronnqvist](http://ronnqvi.st/book/) upcoming SceneKit book, recommended.
