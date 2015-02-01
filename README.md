@@ -159,10 +159,11 @@ so you can either add it to your existing project or clone this repository and p
 > Remember to not add playgrounds in production builds (easy with new cocoapods configuration scoping).
 
 Once you have pod installed, you need to create your playground, it’s simple:
+
 1. Subclass KZPPlayground
 2. Implement run method
-3. Conform to KZPActivePlayground protocol
-- You can have many playgrounds in one project, but only one should be marked as KZPActivePlayground. It will be automatically loaded.
+3. Conform to KZPActivePlayground protocol  
+You can have many playgrounds in one project, but only one should be marked as KZPActivePlayground. It will be automatically loaded.
 4. present `[KZPPlaygroundViewController playgroundViewController]`
 
 To apply your changes you have 2 approaches:
