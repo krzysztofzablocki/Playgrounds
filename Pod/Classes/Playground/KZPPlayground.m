@@ -46,6 +46,10 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 @implementation KZPPlayground
 @synthesize transientObjects = _transientObjects;
 
++ (void)injected {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KZPPlaygroundDidChangeImplementationNotification object:nil];
+}
+
 - (instancetype)init
 {
   self = [super init];
