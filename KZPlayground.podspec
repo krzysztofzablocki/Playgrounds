@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "KZPlayground"
   s.version          = "0.3.2"
-  s.summary          = "Playgrounds but for Objective-C, with some extra coolnes."
+  s.summary          = "Playgrounds but for Objective-C, with some extra coolness."
   s.description      = <<-DESC
                        We all love Swift playgrounds, they are really great,
 but since most of us still write Objective-C code, why not get benefits of rapid development with Objective-C Plagrounds?
