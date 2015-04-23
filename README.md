@@ -183,7 +183,7 @@ kicker -sql 0.05 Example
 
 This will react to all changes in .m files in the Example directory and reload your playground.
 
-### Configuring Kicker For Your Project
+### (Optional) Make Kicker autostart whenever you run your project
 
 1. Copy the .kick file to your project's directory.
 2. Add a new "Run Script" under your target's "Build Phases" tab with the following:
