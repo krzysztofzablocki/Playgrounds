@@ -189,8 +189,13 @@ This will react to all changes in .m files in the Example directory and reload y
 2. Add a new "Run Script" under your target's "Build Phases" tab with the following:
 
 ```
-cd $PROJECT_DIR
-kicker -sql 0.05 . > /dev/null 2>&1 &
+PID_PATH=/tmp/${PROJECT_NAME}_kicker.pid
+if [ -e $PID_PATH ]
+then
+  kill $(cat $PID_PATH)
+  rm $PID_PATH
+fi
+kicker -sql 0.05 . > /dev/null 2>&1 & echo $! > $PID_PATH
 ```
 
 ### Only once
