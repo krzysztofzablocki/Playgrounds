@@ -197,6 +197,7 @@ then
 fi
 kicker -sql 0.05 . > /dev/null 2>&1 & echo $! > $PID_PATH
 ```
+Note: You will need to manually kill the kicker process when you're done since it won't be killed after you stop running your project.
 
 ### Only once
 KZPlayground is powered by [Dyci](https://github.com/DyCI/dyci-main/) code injection tool, you only need to install it once on your machine (You’ll need to reinstall it on Xcode updates):
