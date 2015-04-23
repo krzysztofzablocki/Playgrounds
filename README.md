@@ -175,13 +175,29 @@ To apply your changes you have 2 approaches:
 kicker -sql 0.05 FOLDER_WITH_SOURCE_FILES
 ```
 
-in case of Example project you'd call kicker from inside the project root folder (one containing Example and Pod)
+in case of Example project you'd call kicker from inside the project root folder (one containing the `.kick` file, which you will also need.)
 
 ```bash
 kicker -sql 0.05 Example
 ```
 
-This will react to all changes in .m files and reload your playground.
+This will react to all changes in .m files in the Example directory and reload your playground.
+
+### Configuring Kicker For Your Project
+
+1. Copy the .kick file to your project's directory.
+2. Add a new "Run Script" under your target's "Build Phases" tab with the following:
+
+```
+PID_PATH=/tmp/${PROJECT_NAME}_kicker.pid
+if [ -e $PID_PATH ]
+then
+  kill $(cat $PID_PATH)
+  rm $PID_PATH
+fi
+kicker -sql 0.05 . > /dev/null 2>&1 & echo $! > $PID_PATH
+```
+Note: You will need to manually kill the kicker process when you're done since it won't be killed after you stop running your project.
 
 ### Only once
 KZPlayground is powered by [Dyci](https://github.com/DyCI/dyci-main/) code injection tool, you only need to install it once on your machine (You’ll need to reinstall it on Xcode updates):
