@@ -21,7 +21,7 @@
 
 + (KZPPlaygroundViewController *)playgroundViewController
 {
-  return [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle bundleForClass:self]] instantiateInitialViewController];
+  return [[UIStoryboard storyboardWithName:@"KZPPlaygroundMain" bundle:[NSBundle bundleForClass:self]] instantiateInitialViewController];
 }
 
 - (void)setTimelineHidden:(BOOL)hidden

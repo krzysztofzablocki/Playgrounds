@@ -138,7 +138,7 @@
 		3D8125ED7315C646E1DD4140 /* Pods-KZPlayground-RSSwizzle-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KZPlayground-RSSwizzle-dummy.m"; sourceTree = "<group>"; };
 		3DFF839CD0D66059BCFD812D /* KZPSnapshotView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPSnapshotView.h; path = Pod/Classes/Components/KZPSnapshotView.h; sourceTree = "<group>"; };
 		3E7A146DB965B89D38A945F2 /* KZPImagePickerComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KZPImagePickerComponent.h; path = Pod/Classes/Components/Images/ImagePicker/KZPImagePickerComponent.h; sourceTree = "<group>"; };
-		418A7657540070E0DA5E18B3 /* Main.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; name = Main.storyboard; path = Pod/Assets/Main.storyboard; sourceTree = "<group>"; };
+		418A7657540070E0DA5E18B3 /* KZPPlaygroundMain.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; name = KZPPlaygroundMain.storyboard; path = Pod/Assets/KZPPlaygroundMain.storyboard; sourceTree = "<group>"; };
 		423F514964A81F65A50CA727 /* SFFileWatcherDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SFFileWatcherDelegate.h; path = "Dynamic Code Injection/dyci/Classes/FileWatcher/SFFileWatcherDelegate.h"; sourceTree = "<group>"; };
 		42D3137EC7FCDB6AD5233E4C /* Pods-KZPlayground-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KZPlayground-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4F8C54C6828AE4C9E7FB26DE /* KZPActionComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KZPActionComponent.m; path = Pod/Classes/Components/Controls/Action/KZPActionComponent.m; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				5361E03B9242F4032977605C /* KZPPresenterInfoViewController.xib */,
-				418A7657540070E0DA5E18B3 /* Main.storyboard */,
+				418A7657540070E0DA5E18B3 /* KZPPlaygroundMain.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
