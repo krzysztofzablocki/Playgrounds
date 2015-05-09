@@ -260,6 +260,9 @@ Krzysztof Zablocki, krzysztof.zablocki@pixle.pl
 
 [Check-out my blog](http://merowing.info) or [GitHub profile](https://github.com/krzysztofzablocki) for more cool stuff.
 
+## Cool usages
+[Check out AudioKit examples using playgrounds](http://audiokit.io/playgrounds)/
+
 #### Attribution
 
 SceneKit example code has been taken from [David Ronnqvist](http://ronnqvi.st/book/) upcoming SceneKit book, recommended.
