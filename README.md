@@ -261,7 +261,7 @@ Krzysztof Zablocki, krzysztof.zablocki@pixle.pl
 [Check-out my blog](http://merowing.info) or [GitHub profile](https://github.com/krzysztofzablocki) for more cool stuff.
 
 ## Cool usages
-[Check out AudioKit examples using playgrounds](http://audiokit.io/playgrounds)/
+[Check out AudioKit examples using playgrounds](http://audiokit.io/playgrounds)
 
 #### Attribution
 
