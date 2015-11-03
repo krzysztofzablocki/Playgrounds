@@ -1,0 +1,2 @@
+/Users/merowing/Library/Developer/Xcode/DerivedData/SwiftExample-biegeyiatvnfylfnucrxgfhtbsyu/Build/Products/Debug-iphonesimulator/SwiftExample.app
+

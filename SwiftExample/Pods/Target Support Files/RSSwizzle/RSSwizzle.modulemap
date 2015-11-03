@@ -1,0 +1,6 @@
+framework module RSSwizzle {
+  umbrella header "RSSwizzle-umbrella.h"
+
+  export *
+  module * { export * }
+}

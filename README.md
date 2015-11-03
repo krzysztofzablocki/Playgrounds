@@ -1,4 +1,4 @@
-# Swift Playgrounds... but for Objective-C and with some superb features.
+# Swift Playgrounds... but supporting both Objective-C and Swift code, plus some superb features.
 
 [Watch demo](https://vimeo.com/109757619)
 
@@ -200,7 +200,7 @@ kicker -sql 0.05 . > /dev/null 2>&1 & echo $! > $PID_PATH
 Note: You will need to manually kill the kicker process when you're done since it won't be killed after you stop running your project.
 
 ### Only once
-KZPlayground is powered by [Dyci](https://github.com/DyCI/dyci-main/) code injection tool, you only need to install it once on your machine (You’ll need to reinstall it on Xcode updates):
+KZPlayground is powered by Code Injection, currently using [Dyci](https://github.com/DyCI/dyci-main/) code injection tool, you only need to install it once on your machine (You’ll need to reinstall it on Xcode updates):
 
 ```bash
 git clone https://github.com/DyCI/dyci-main.git
@@ -214,17 +214,19 @@ In order to use the [kicker](https://github.com/alloy/kicker) gem, you need to i
 (sudo) gem install kicker
 ```
 
-## Roadmap & Contributing
+## Swift support
 
-- Recompilation of Xib
-- Recompilation of Storyboards
-- Integrate graph displays.
-- Resizable timeline/worksheet splitter.
-- Nicer visualisations for Arrays && Dictionaries.
+My playgrounds now support Swift code, to use that you should use [injectionforxcode](http://injectionforxcode.com) instead of Dyci, make sure to grab 0.4 Release for some simpler API.
+
+## Contributing
 
 Pull-requests are welcomed.
 
 ## Changelog
+
+### 0.4
+- Basic Swift support 
+- Added Swift example
 
 ### 0.3.2
 - Ability to hide timeline

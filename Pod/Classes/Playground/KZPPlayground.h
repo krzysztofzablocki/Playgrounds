@@ -22,14 +22,14 @@ extern NSString *const KZPPlaygroundDidChangeImplementationNotification;
 @end
 
 @interface KZPPlayground : NSObject
-@property(nonatomic, weak, readonly) UIView *worksheetView;
-@property(nonatomic, weak, readonly) UIViewController *viewController;
-@property(nonatomic, weak, readonly) KZPPlaygroundViewController *playgroundViewController;
+@property(nonatomic, strong, readonly, nonnull) UIView *worksheetView;
+@property(nonatomic, strong, readonly, nonnull) UIViewController *viewController;
+@property(nonatomic, strong, readonly, nonnull) KZPPlaygroundViewController *playgroundViewController;
 
 //! objects store that will be re-created with recompilation, use eg. instead of instance variables
-@property(nonatomic, strong, readonly) NSMutableDictionary *transientObjects;
+@property(nonatomic, strong, readonly, nonnull) NSMutableDictionary *transientObjects;
 
-- (instancetype)init NS_REQUIRES_SUPER NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_REQUIRES_SUPER NS_DESIGNATED_INITIALIZER;
 
 //! called only once
 - (void)setup;

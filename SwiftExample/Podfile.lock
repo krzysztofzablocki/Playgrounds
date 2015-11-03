@@ -1,0 +1,28 @@
+PODS:
+  - dyci (0.1.5.6):
+    - dyci/Injections (= 0.1.5.6)
+  - dyci/Injections (0.1.5.6)
+  - KZPlayground (0.3.2):
+    - dyci (~> 0.1.5.6)
+    - NHBalancedFlowLayout (~> 0.2)
+    - RSSwizzle (~> 0.1.0)
+  - NHBalancedFlowLayout (0.2)
+  - Reveal-iOS-SDK (1.6.1)
+  - RSSwizzle (0.1.0)
+
+DEPENDENCIES:
+  - KZPlayground (from `../`)
+  - Reveal-iOS-SDK
+
+EXTERNAL SOURCES:
+  KZPlayground:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  dyci: 099c2e6dc98abb8f21b370cabbf1443ff700608a
+  KZPlayground: 20f4f672cf2a792a1e9fa73d6ff72d1a6dd7021b
+  NHBalancedFlowLayout: fd253023c6754e605acdb180d50123e582cc62bb
+  Reveal-iOS-SDK: ceae964076cebe3efe63e5e9abe3152efce46aa8
+  RSSwizzle: d561958f595028bfcef98c7d55c318b3878a61c6
+
+COCOAPODS: 0.39.0

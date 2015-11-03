@@ -38,9 +38,9 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 @end
 
 @interface KZPPlayground ()
-@property(nonatomic, weak, readwrite) UIView *worksheetView;
-@property(nonatomic, weak, readwrite) UIViewController *viewController;
-@property(nonatomic, weak, readwrite) KZPPlaygroundViewController *playgroundViewController;
+@property(nonatomic, strong, readwrite) UIView *worksheetView;
+@property(nonatomic, strong, readwrite) UIViewController *viewController;
+@property(nonatomic, strong, readwrite) KZPPlaygroundViewController *playgroundViewController;
 @end
 
 @implementation KZPPlayground

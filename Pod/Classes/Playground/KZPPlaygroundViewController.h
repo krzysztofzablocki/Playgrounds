@@ -12,5 +12,6 @@
 @property(nonatomic, assign) BOOL timelineHidden;
 
 + (instancetype)playgroundViewController;
++ (instancetype)newPlaygroundViewController;
 
 @end
