@@ -44,7 +44,7 @@ static const NSInteger kAssetButtonIndex = 1;
 
   KZPTimelineViewController *timelineViewController = [KZPTimelineViewController sharedInstance];
 
-  KZPPresenterComponent *presenterComponent = [[KZPPresenterComponent alloc] initWithImage:self.class.lastValues[name] type:@"UIImage"];
+  KZPPresenterComponent *presenterComponent = [[KZPPresenterComponent alloc] initWithComponent:self.class.lastValues[name]];
   presenterComponent.frame = CGRectMake(0, 0, timelineViewController.maxWidthForSnapshotView, timelineViewController.maxWidthForSnapshotView);
   presenterComponent.backgroundColor = UIColor.blackColor;
 
@@ -116,7 +116,7 @@ static const NSInteger kAssetButtonIndex = 1;
 
 - (void)setSelectedImage:(UIImage*)image
 {
-  self.presenterComponent.image = image;
+  self.presenterComponent.component = image;
   self.changeBlock(image);
   self.class.lastValues[self.name] = image;
 }

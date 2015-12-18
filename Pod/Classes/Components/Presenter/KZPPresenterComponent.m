@@ -11,6 +11,26 @@
 #import "KZPSnapshotView.h"
 #import "KZPPresenterInfoViewController.h"
 
+UIImage* __attribute__((overloadable)) KZPShowInternal(CALayer *layer);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(UIView *view);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(UIBezierPath *path);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(CGPathRef path);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(CGImageRef image);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(UIImage *image);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(NSString *format, va_list args);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(NSArray *array);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(id obj, va_list *args);
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(id obj);
+
 static NSString *KZPShowType = nil;
 
 void KZPShowRegisterType(NSString *format, ...) {
@@ -22,8 +42,8 @@ void KZPShowRegisterType(NSString *format, ...) {
   if (KZPShowType) {
     return;
   }
-
-  va_list args;
+  
+  va_list (args);
   va_start(args, format);
   KZPShowType = [[NSString alloc] initWithFormat:format arguments:args];
   va_end(args);
@@ -38,17 +58,18 @@ void KZPShowRegisterClass(id instance, Class baseClass) {
   KZPShowRegisterType(NSStringFromClass(baseClass));
 }
 
-void __attribute__((overloadable)) KZPShow(CALayer *layer) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(CALayer *layer) {
   KZPShowRegisterClass(layer, CALayer.class);
 
   UIGraphicsBeginImageContextWithOptions(layer.bounds.size, NO, 0);
   [layer renderInContext:UIGraphicsGetCurrentContext()];
   UIImage *copied = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-  KZPShow(copied);
+  
+  return copied;
 }
 
-void __attribute__((overloadable)) KZPShow(UIView *view) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(UIView *view) {
   KZPShowRegisterClass(view, UIView.class);
 
   UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
@@ -56,20 +77,20 @@ void __attribute__((overloadable)) KZPShow(UIView *view) {
   UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  KZPShow(image);
+  return image;
 }
 
-void __attribute__((overloadable)) KZPShow(CGPathRef path) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(CGPathRef path) {
   KZPShowRegisterType(@"CGPathRef");
 
   UIBezierPath *bezierPath = [UIBezierPath bezierPathWithCGPath:path];
   [bezierPath setLineWidth:3];
   [bezierPath setLineJoinStyle:kCGLineJoinBevel];
-  KZPShow(bezierPath);
+  return KZPShowInternal(bezierPath);
 }
 
 
-void __attribute__((overloadable)) KZPShow(UIBezierPath *path) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(UIBezierPath *path) {
   KZPShowRegisterType(@"UIBezierPath");
 
   CGRect rect = CGRectMake(0, 0, CGRectGetWidth(path.bounds) + path.lineWidth, CGRectGetHeight(path.bounds) + path.lineWidth);
@@ -83,34 +104,30 @@ void __attribute__((overloadable)) KZPShow(UIBezierPath *path) {
   UIGraphicsPopContext();
   UIGraphicsEndImageContext();
 
-  KZPShow(image);
+  return image;
 }
 
-void __attribute__((overloadable)) KZPShow(CGImageRef image) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(CGImageRef image) {
   KZPShowRegisterType(@"CGImageRef");
 
-  KZPShow([UIImage imageWithCGImage:image]);
+  return [UIImage imageWithCGImage:image];
 }
 
-void __attribute__((overloadable)) KZPShow(UIImage *image) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(UIImage *image) {
   KZPShowRegisterType(@"UIImage");
 
-  KZPPresenterComponent *presenter = [[KZPPresenterComponent alloc] initWithImage:image type:KZPShowType];
-  if (!presenter) {
-    KZPShow(@"Error: Unable to present image with size %@", NSStringFromCGSize(image.size));
-    return;
-  }
-  [[KZPTimelineViewController sharedInstance] addView:presenter];
-  KZPShowRegisterType(nil);
+  return image;
 }
 
-void __attribute__((overloadable)) KZPShow(NSString *format, ...) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(NSString *format, va_list *args) {
   KZPShowRegisterType(@"NSString");
 
-  va_list args;
-  va_start(args, format);
-  NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
-  va_end(args);
+  NSString *message = nil;
+  if (args) {
+    message = [[NSString alloc] initWithFormat:format arguments:*args];
+  } else {
+    message = format;
+  }
 
   UILabel *label = [[UILabel alloc] init];
   label.text = message;
@@ -119,30 +136,104 @@ void __attribute__((overloadable)) KZPShow(NSString *format, ...) {
   CGSize size = [label sizeThatFits:CGSizeMake([KZPTimelineViewController sharedInstance].maxWidthForSnapshotView, CGFLOAT_MAX)];
   label.frame = CGRectMake(0, 0, size.width, size.height);
 
-  [[KZPTimelineViewController sharedInstance] addView:label];
-  KZPShowRegisterType(nil);
+  return KZPShowInternal((UIView*)label);
 }
 
-void __attribute__((overloadable)) KZPShow(id obj) {
+UIImage* __attribute__((overloadable)) KZPShowInternal(NSArray *array) {
+  KZPShowRegisterType(@"NSArray");
+  
+  //Render max the first 100 limit
+  NSInteger limit = MIN (100, [array count]);
+  
+  //Create a matrix of previews
+  NSInteger matrixHorizontalSize = 3;
+  CGFloat previewSize = [KZPTimelineViewController sharedInstance].maxWidthForSnapshotView/matrixHorizontalSize;
+  NSInteger numberOfRow = ceilf(limit/(float)matrixHorizontalSize);
+  CGFloat matrixWidth = previewSize * matrixHorizontalSize;
+  CGFloat matrixHeight = round((matrixWidth/3)*numberOfRow);
+  
+  UIGraphicsBeginImageContextWithOptions(CGSizeMake(matrixWidth, matrixHeight), NO, 0);
+  
+  NSUInteger counter = 0;
+  for (id obj in array) {
+    if (counter>limit) {
+      break;
+    }
+    UIImage *image = KZPShowInternal(obj);
+    
+    CGFloat y = (floor(counter/matrixHorizontalSize)*previewSize);
+    CGFloat x = (counter%matrixHorizontalSize)*previewSize;
+    CGFloat height = image.size.height;
+    CGFloat width = image.size.width;
+    CGFloat maxSide = MAX(width, height);
+    CGFloat aspectAdjustment = previewSize / maxSide;
+    height *= aspectAdjustment;
+    width *= aspectAdjustment;
+    CGFloat originTranslationX = (previewSize-width)/2;
+    CGFloat originTranslationY = (previewSize-height)/2;
+    [image drawInRect:CGRectMake(originTranslationX+x, originTranslationY+y, width, height)];
+    
+    counter ++;
+  }
+  
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  KZPShowRegisterType(nil);
+  return image;
+}
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(id obj, va_list *args) {
+  
+  UIImage *image = nil;
+  if ([obj isKindOfClass:[CALayer class]]) {
+    image = KZPShowInternal((CALayer*)obj);
+  } else if ([obj isKindOfClass:[UIView class]]){
+    image = KZPShowInternal((UIView*)obj);
+  } else if ([obj isKindOfClass:[UIBezierPath class]]){
+    image = KZPShowInternal((UIBezierPath*)obj);
+  } else if ([obj isKindOfClass:[UIImage class]]){
+    image = KZPShowInternal((UIImage*)obj);
+  } else if ([obj isKindOfClass:[NSString class]]){
+    image = KZPShowInternal((NSString*)obj, args);
+  } else if ([obj isKindOfClass:[NSArray class]]){
+    image = KZPShowInternal((NSArray*)obj);
+  } else {
+    image = KZPShowInternal([NSString stringWithFormat:@"%@",[obj description]]);
+  }
+  return image;
+}
+
+UIImage* __attribute__((overloadable)) KZPShowInternal(id obj)
+{
+  return KZPShowInternal(obj, nil);
+}
+
+extern void KZPShow(id obj, ...) {
   if ([obj respondsToSelector:@selector(kzp_debugImage)]) {
     UIImage *image = [obj performSelector:@selector(kzp_debugImage)];
     KZPShow(image);
     return;
   }
 
+  id showObj = nil;
   if ([obj respondsToSelector:@selector(debugQuickLookObject)]) {
-    id debugObject = [obj debugQuickLookObject];
-
-#define SHOW_IF(type) if([debugObject isKindOfClass:type.class]) {KZPShow((type*)debugObject); return;}
-    SHOW_IF(CALayer);
-    SHOW_IF(UIView);
-    SHOW_IF(UIBezierPath);
-    SHOW_IF(UIImage);
-    SHOW_IF(NSString);
-#undef SHOW_IF
+      showObj = [obj debugQuickLookObject];
+  } else if ([obj isKindOfClass:[NSString class]]){
+    va_list(args);
+    va_start(args, obj);
+    showObj = [[NSString alloc] initWithFormat:obj arguments:args];
+    va_end(args);
+  } else {
+    showObj = obj;
   }
-
-  KZPShow([NSString stringWithFormat:@"%@ : %@", NSStringFromClass([obj class]), [obj description]]);
+  
+  KZPPresenterComponent *presenter = [[KZPPresenterComponent alloc] initWithComponent:showObj];
+  if (!presenter) {
+    KZPShow(@"Error: Unable to present image with size %@", NSStringFromCGSize(presenter.frame.size));
+    return;
+  }
+  [[KZPTimelineViewController sharedInstance] addView:presenter];
 }
 
 @interface KZPPresenterComponent () <KZPSnapshotView>
@@ -151,27 +242,41 @@ void __attribute__((overloadable)) KZPShow(id obj) {
 @end
 
 @implementation KZPPresenterComponent
-- (instancetype)initWithImage:(UIImage *)image type:(NSString *)type
+
+- (instancetype)initWithComponent:(id)component;
 {
-  self = [super initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+  self = [super initWithFrame:CGRectZero];
   if (!self) {
     return nil;
   }
 
-  _image = image;
-  _type = [type copy];
+  self.component = component;
+  
   [self setup];
+  
   return self;
 }
 
 - (void)setup
 {
-  UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
+  UIImage *image = KZPShowInternal(_component);
+  
+  UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   imageView.frame = self.bounds;
   imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [self addSubview:imageView];
   self.imageView = imageView;
+  self.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+}
+
+- (void)setComponent:(id)component
+{
+  _component = component;
+  
+  UIImage *image = KZPShowInternal(_component);
+  self.imageView.image = image;
+  self.type = NSStringFromClass([_component class]);
 }
 
 - (BOOL)hasExtraInformation
@@ -179,18 +284,26 @@ void __attribute__((overloadable)) KZPShow(id obj) {
   return YES;
 }
 
-- (void)setImage:(UIImage *)image
-{
-  _image = image;
-  self.imageView.image = image;
-}
-
 
 - (UIViewController *)extraInfoController
 {
+  NSMutableArray *m_images = [NSMutableArray new];
+  NSString *title = nil;
+  
+  if ([self.component isKindOfClass:[NSArray class]]) {
+    for (id obj in self.component) {
+      UIImage *image = KZPShowInternal(obj);
+      [m_images addObject:image];
+    }
+    title = [NSString stringWithFormat:@"%@ count:%d", self.type, [self.component count]];
+  } else {
+    [m_images addObject:self.imageView.image];
+    title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.imageView.image.size.width, self.imageView.image.size.height];
+  }
+  
+  
   KZPPresenterInfoViewController *presenterInfoViewController = [KZPPresenterInfoViewController new];
-  NSString *title = [NSString stringWithFormat:@"%@ %.0f x %.0f", self.type, self.image.size.width, self.image.size.height];
-  [presenterInfoViewController setFromImage:self.image title:title];
+  [presenterInfoViewController setFromImages:[m_images copy] title:title];
   return presenterInfoViewController;
 }
 

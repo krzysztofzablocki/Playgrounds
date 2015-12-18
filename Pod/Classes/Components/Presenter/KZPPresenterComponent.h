@@ -11,21 +11,25 @@
 
 #import "KZPComponent.h"
 
-extern void __attribute__((overloadable)) KZPShow(CALayer *layer);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(CALayer *layer);
 
-extern void __attribute__((overloadable)) KZPShow(UIView *view);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(UIView *view);
 
-extern void __attribute__((overloadable)) KZPShow(UIBezierPath *path);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(UIBezierPath *path);
 
-extern void __attribute__((overloadable)) KZPShow(CGPathRef path);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(CGPathRef path);
 
-extern void __attribute__((overloadable)) KZPShow(CGImageRef image);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(CGImageRef image);
 
-extern void __attribute__((overloadable)) KZPShow(UIImage *image);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(UIImage *image);
 
-extern void __attribute__((overloadable)) KZPShow(NSString *format, ...);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(NSString *format, va_list args);
 
-extern void __attribute__((overloadable)) KZPShow(id obj);
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(NSArray *array);
+
+extern UIImage* __attribute__((overloadable)) KZPShowInternal(id obj);
+
+extern void KZPShow(id obj, ...);
 
 @protocol KZPPresenterDebugProtocol <NSObject>
 //! preffered
@@ -37,7 +41,9 @@ extern void __attribute__((overloadable)) KZPShow(id obj);
 @end
 
 @interface KZPPresenterComponent : UIView <KZPComponent>
-@property(nonatomic, strong) UIImage *image;
 
-- (instancetype)initWithImage:(UIImage *)image type:(NSString *)type;
+@property(nonatomic, strong) id component;
+
+- (instancetype)initWithComponent:(id)component;
+
 @end
