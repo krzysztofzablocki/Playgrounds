@@ -28,7 +28,6 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
       return;
   }
   
-  SEL selectorToSwizzle = @selector(performInjectionWithClass:);
   RSSwizzleInstanceMethod(SFDynamicCodeInjection.class,
     selectorToSwizzle,
     RSSWReturnType(void),
