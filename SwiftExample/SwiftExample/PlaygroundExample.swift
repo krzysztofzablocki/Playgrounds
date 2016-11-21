@@ -17,7 +17,7 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         header.center = CGPoint(x: header.bounds.size.width * 0.5, y: header.bounds.size.height * 0.5)
         viewport.addSubview(header)
         
-        animateToOpen(headerShapeLayer, duration: 0.25)
+        animateToOpen(shape: headerShapeLayer, duration: 0.25)
     }
     
     func prepareHeader() -> UIView {
@@ -25,8 +25,8 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         let (shapePath, pathSize, headerLineLengthNormalized, circleCenter) = fullPath()
         self.headerLineLengthNormalized = headerLineLengthNormalized
         shape.path = shapePath
-        shape.fillColor = UIColor.clearColor().CGColor
-        shape.strokeColor = UIColor.whiteColor().CGColor
+        shape.fillColor = UIColor.clear.cgColor
+        shape.strokeColor = UIColor.white.cgColor
         shape.strokeEnd = headerLineLengthNormalized
         let header = UIView(frame: CGRect(x: 0, y: 0, width: pathSize.width, height: pathSize.height))
         shape.position = CGPoint(x: (viewportWidth() - header.bounds.size.width) / 2, y: 20 + header.bounds.size.height)
@@ -39,7 +39,7 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         
         headerLabel = UILabel()
         headerLabel.text = "merowing.info"
-        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.textColor = UIColor.white
         headerLabel.sizeToFit()
         headerLabel.center = CGPoint(x: shape.position.x + 70, y: shape.position.y - 20)
         header.addSubview(headerLabel)
@@ -81,9 +81,9 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
     func prepareButton() -> CAShapeLayer {
         let buttonShape = CAShapeLayer()
         let path = buttonPath()
-        buttonShape.path = path.CGPath
-        buttonShape.fillColor = UIColor.clearColor().CGColor
-        buttonShape.strokeColor = UIColor.whiteColor().CGColor
+        buttonShape.path = path.cgPath
+        buttonShape.fillColor = UIColor.clear.cgColor
+        buttonShape.strokeColor = UIColor.white.cgColor
         buttonShape.bounds = path.bounds
         return buttonShape
     }
@@ -94,8 +94,8 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         let inset: CGFloat = 30
         let lineLength = viewportWidth() - inset
         let lineStart = (viewportWidth() - (lineLength - radius)) / 2
-        path.moveToPoint(CGPoint(x: lineStart, y: 0))
-        path.addLineToPoint(CGPoint(x: lineLength, y: 0))
+        path.move(to: CGPoint(x: lineStart, y: 0))
+        path.addLine(to: CGPoint(x: lineLength, y: 0))
 
         let circleLength = 2.0 * CGFloat(M_PI) * radius
         let totalLength = circleLength + lineLength - lineStart
@@ -103,14 +103,14 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         
         let circleCenter = CGPoint(x:lineLength, y: -radius)
         
-        var nextPoint = CGPointZero
+        var nextPoint = CGPoint.zero
         
         let _ = (0..<360).map {
-            nextPoint = CGPoint(x: CGFloat(sinf(toRadian($0))) * radius + circleCenter.x, y: CGFloat(cosf(toRadian($0))) * radius + circleCenter.y)
-            path.addLineToPoint(nextPoint)
+            nextPoint = CGPoint(x: CGFloat(sinf(toRadian(degree: $0))) * radius + circleCenter.x, y: CGFloat(cosf(toRadian(degree: $0))) * radius + circleCenter.y)
+            path.addLine(to: nextPoint)
         }
         
-        return (path.CGPath, CGSize(width: viewportWidth(), height: path.bounds.size.height), lineLengthNormalized, circleCenter)
+        return (path.cgPath, CGSize(width: viewportWidth(), height: path.bounds.size.height), lineLengthNormalized, circleCenter)
     }
     
     func viewportWidth() -> CGFloat {
@@ -122,16 +122,16 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         let width = 20
         let path = UIBezierPath()
         
-        path.moveToPoint(CGPointZero)
-        path.addLineToPoint(CGPoint(x: width, y: 0))
+        path.move(to: CGPoint.zero)
+        path.addLine(to: CGPoint(x: width, y: 0))
 
-        path.moveToPoint(CGPoint(x: 0, y: distance))
-        path.addLineToPoint(CGPoint(x: width, y: distance))
+        path.move(to: CGPoint(x: 0, y: distance))
+        path.addLine(to: CGPoint(x: width, y: distance))
         
-        path.moveToPoint(CGPoint(x: 0, y: 2 * distance))
-        path.addLineToPoint(CGPoint(x: width, y: 2 * distance))
-        
-        path.applyTransform(CGAffineTransformMakeTranslation(CGFloat(0), CGFloat(CGFloat(distance) * CGFloat(0.5))))
+        path.move(to: CGPoint(x: 0, y: 2 * distance))
+        path.addLine(to: CGPoint(x: width, y: 2 * distance))
+
+        path.apply(CGAffineTransform(translationX: CGFloat(0), y: CGFloat(CGFloat(distance) * CGFloat(0.5))))
         return path
     }
     
@@ -144,7 +144,7 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
             return
         }
         isCollapsed = true
-        animate(shape, duration: duration, stroke: (headerLineLengthNormalized, 1), headerAlpha: 0)
+        animate(shape: shape, duration: duration, stroke: (headerLineLengthNormalized, 1), headerAlpha: 0)
     }
     
     func animateToOpen(shape: CAShapeLayer, duration: CFTimeInterval) {
@@ -152,7 +152,7 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
             return
         }
         isCollapsed = false
-        animate(shape, duration: duration, stroke: (0, headerLineLengthNormalized), headerAlpha: 1)
+        animate(shape: shape, duration: duration, stroke: (0, headerLineLengthNormalized), headerAlpha: 1)
     }
 
     func animate(shape: CAShapeLayer, duration: CFTimeInterval, stroke: (start: CGFloat, end: CGFloat), headerAlpha: CGFloat) {
@@ -164,7 +164,7 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         strokeEndAnimation.fillMode = kCAFillModeBoth
         
         shape.strokeEnd = stroke.end
-        shape.addAnimation(strokeEndAnimation, forKey: strokeEndAnimation.keyPath)
+        shape.add(strokeEndAnimation, forKey: strokeEndAnimation.keyPath)
         
         let strokeBeginAnimation = CABasicAnimation(keyPath: "strokeStart")
         strokeBeginAnimation.beginTime = CACurrentMediaTime()
@@ -175,20 +175,20 @@ class KZPPlaygroundExample : KZPPlayground, KZPActivePlayground, UIScrollViewDel
         strokeBeginAnimation.fillMode = kCAFillModeBoth
         
         shape.strokeStart = stroke.start
-        shape.addAnimation(strokeBeginAnimation, forKey: strokeBeginAnimation.keyPath)
+        shape.add(strokeBeginAnimation, forKey: strokeBeginAnimation.keyPath)
         
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseInOut, animations: { () -> Void in
             self.headerLabel.alpha = headerAlpha
             }, completion: nil)
     }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let deadZone = (start: CGFloat(10), end: CGFloat(50))
         if (scrollView.contentOffset.y < deadZone.start && isCollapsed) {
-            animateToOpen(headerShapeLayer, duration: 0.25)
+            animateToOpen(shape: headerShapeLayer, duration: 0.25)
         } else
             if (scrollView.contentOffset.y > deadZone.end && !isCollapsed) {
-                animateToCollapsed(headerShapeLayer, duration: 0.25)
+                animateToCollapsed(shape: headerShapeLayer, duration: 0.25)
             }
         }
 }
