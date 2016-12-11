@@ -11,6 +11,16 @@ void __attribute__((overloadable)) KZPAnimate(CGFloat from, CGFloat to, void (^b
   [KZPAnimatorComponent addAnimatorFromValue:from toValue:to withBlock:block];
 }
 
+void __attribute__((overloadable)) KZPAnimate(float from, float to, void (^block)(float)) {
+    [KZPAnimatorComponent addAnimatorFromValue:from toValue:to withBlock:^(CGFloat v) { block(v); }];
+}
+
+void __attribute__((overloadable)) KZPAnimateAR(float from, float to, void (^block)(float)) {
+    [KZPAnimatorComponent addAnimatorFromValue:from toValue:to withBlock:^(CGFloat v) {
+        block(sinf(v) * (to - from) + from);
+    }];
+}
+
 void __attribute__((overloadable)) KZPAnimate(void (^block)(void)) {
   [KZPAnimatorComponent addAnimatorFromValue:0 toValue:60 withBlock:^(CGFloat v) {
     block();

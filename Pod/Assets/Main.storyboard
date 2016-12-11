@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rg0-KV-zcY">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Rg0-KV-zcY">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Playground View Controller-->
@@ -13,11 +18,14 @@
                         <viewControllerLayoutGuide type="bottom" id="HY5-88-AZc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZZW-8b-B39">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-3u-U0W" userLabel="Right Container">
+                                <rect key="frame" x="240" y="0.0" width="135" height="667"/>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJV-BR-ErW" userLabel="Left Container">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="667"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="3bh-4m-r6S"/>
                                 </constraints>
@@ -25,11 +33,8 @@
                                     <segue destination="era-k8-Vln" kind="embed" id="mis-eS-aPs"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3m-3u-U0W" userLabel="Right Container">
-                                <rect key="frame" x="240" y="0.0" width="360" height="600"/>
-                            </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="yJV-BR-ErW" firstAttribute="bottom" secondItem="HY5-88-AZc" secondAttribute="top" id="AJE-pr-7Py"/>
                             <constraint firstItem="X3m-3u-U0W" firstAttribute="bottom" secondItem="HY5-88-AZc" secondAttribute="top" id="CHq-to-XBK"/>
@@ -65,7 +70,7 @@
                         <viewControllerLayoutGuide type="bottom" id="0HL-rE-jTl"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="brc-pH-e5b">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBW-Et-gm1">
@@ -74,12 +79,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3A-6A-AW1">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d3A-6A-AW1">
                                 <rect key="frame" x="0.0" y="21" width="240" height="580"/>
-                                <color key="backgroundColor" red="0.86265093088150024" green="0.86279934644699097" blue="0.86264157295227051" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.83030533790588379" green="0.83046466112136841" blue="0.83027863502502441" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="d3A-6A-AW1" firstAttribute="bottom" secondItem="0HL-rE-jTl" secondAttribute="top" id="8lU-IX-c9R"/>
                             <constraint firstItem="zBW-Et-gm1" firstAttribute="top" secondItem="ZOF-Kz-hA0" secondAttribute="bottom" id="Ag9-dP-BHN"/>
@@ -105,7 +110,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="KZPImagePickerCollectionViewController" id="Xuc-8m-E2g" customClass="KZPImagePickerCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ZX6-vg-JBD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nv7-Zr-rxJ" customClass="NHBalancedFlowLayout">
                             <size key="itemSize" width="144" height="144"/>

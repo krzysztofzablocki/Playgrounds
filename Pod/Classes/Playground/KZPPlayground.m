@@ -42,6 +42,22 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 
 @end
 
+@interface NSObject (InjectMe)
+@end
+
+@implementation NSObject (InjectMe)
+
++ (void)injected {
+    [NSObject cancelPreviousPerformRequestsWithTarget:[NSObject class] selector:@selector(postInjection) object:nil];
+    [[NSObject class] performSelector: @selector(postInjection) withObject: nil afterDelay: 0.0001];
+    
+}
+
++ (void)postInjection {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KZPPlaygroundDidChangeImplementationNotification object:nil];
+}
+@end
+
 @interface KZPPlayground ()
 @property(nonatomic, strong, readwrite) UIView *worksheetView;
 @property(nonatomic, strong, readwrite) UIViewController *viewController;
@@ -50,10 +66,6 @@ NSString *const KZPPlaygroundDidChangeImplementationNotification = @"KZPPlaygrou
 
 @implementation KZPPlayground
 @synthesize transientObjects = _transientObjects;
-
-+ (void)injected {
-    [[NSNotificationCenter defaultCenter] postNotificationName:KZPPlaygroundDidChangeImplementationNotification object:nil];
-}
 
 - (instancetype)init
 {
