@@ -14,6 +14,9 @@
 
 extern void __attribute__((overloadable)) KZPAnimate(CGFloat from, CGFloat to, void (^block)(CGFloat));
 
+extern void __attribute__((overloadable)) KZPAnimate(float from, float to, void (^block)(float));
+extern void __attribute__((overloadable)) KZPAnimateAR(float from, float to, void (^block)(float));
+
 extern void __attribute__((overloadable)) KZPAnimate(void (^block)(void));
 
 #define KZPAnimateValue(name, from, to) __block CGFloat name = from; KZPAnimate(from, to, ^(CGFloat f) { name = f; });
